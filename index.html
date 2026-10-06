@@ -1,0 +1,3320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Zulfiqar Dental Clinic | Patient Management System</title>
+
+<meta name="theme-color" content="#3B1C63">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ZDC">
+<meta name="application-name" content="Zulfiqar Dental Clinic">
+<meta name="description" content="Patient Management System for Zulfiqar Dental Clinic">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="dark light">
+
+<link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%233B1C63%22/><text x=%2250%22 y=%2262%22 text-anchor=%22middle%22 font-size=%2242%22 fill=%22white%22 font-weight=%22bold%22 font-family=%22Arial%22>ZDC</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22><rect width=%22180%22 height=%22180%22 rx=%2240%22 fill=%22%233B1C63%22/><circle cx=%2290%22 cy=%2290%22 r=%2260%22 fill=%22none%22 stroke=%22white%22 stroke-width=%225%22/><text x=%2290%22 y=%22100%22 text-anchor=%22middle%22 font-size=%2242%22 fill=%22white%22 font-weight=%22bold%22 font-family=%22Arial%22>ZDC</text></svg>">
+
+<!-- PWA MANIFEST LINK (Requirement 1) -->
+<link rel="manifest" href="./manifest.json">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+
+<style>
+:root{
+  --purple-50:#f5f3ff;--purple-100:#ede9fe;--purple-200:#ddd6fe;--purple-300:#c4b5fd;
+  --purple-400:#a78bfa;--purple-500:#8b5cf6;--purple-600:#7c3aed;--purple-700:#6d28d9;
+  --purple-800:#5b21b6;--purple-900:#4c1d95;
+  --royal-500:#3B1C63;--royal-600:#2E1A47;--royal-700:#251538;--royal-800:#1c0f2b;
+  --indigo-500:#6366f1;--indigo-600:#4f46e5;
+  --red-50:#fef2f2;--red-100:#fee2e2;--red-500:#ef4444;--red-600:#dc2626;
+  --orange-50:#fff7ed;--orange-100:#ffedd5;--orange-500:#f97316;--orange-600:#ea580c;
+  --green-50:#f0fdf4;--green-100:#dcfce7;--green-500:#22c55e;--green-600:#16a34a;--green-700:#15803d;
+
+  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:24px;--radius-full:9999px;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --font-display:'Manrope','Inter',system-ui,sans-serif;
+
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --ease-smooth:cubic-bezier(.22,1,.36,1);
+  --ease-bounce:cubic-bezier(.68,-.55,.265,1.55);
+
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+
+:root{
+  --bg-primary:#1c0f2b;--bg-secondary:#251538;--bg-tertiary:#2E1A47;
+  --bg-card:#2E1A47;--bg-card-hover:#3B1C63;--bg-elevated:#251538;--bg-input:#1c0f2b;
+  --bg-hover:rgba(168,139,250,.08);--bg-active:rgba(168,139,250,.15);
+  --text-primary:#ffffff;--text-secondary:rgba(237,233,254,.85);
+  --text-tertiary:rgba(200,184,255,.6);--text-muted:rgba(200,184,255,.45);
+  --border-primary:rgba(168,139,250,.15);--border-secondary:rgba(168,139,250,.25);--border-strong:rgba(168,139,250,.4);
+  --accent-primary:#8b5cf6;--accent-secondary:#a78bfa;--accent-hover:#7c3aed;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.35);--shadow-md:0 6px 16px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.45);--shadow-xl:0 20px 48px rgba(0,0,0,.5);
+  --shadow-accent:0 8px 24px rgba(124,58,237,.4);--shadow-accent-lg:0 16px 40px rgba(124,58,237,.5);
+  --scrollbar-track:rgba(46,26,71,.5);--scrollbar-thumb:rgba(168,139,250,.4);--scrollbar-thumb-hover:rgba(168,139,250,.6);
+  color-scheme:dark;
+}
+
+[data-theme="dark"]{
+  --bg-primary:#1c0f2b;--bg-secondary:#251538;--bg-tertiary:#2E1A47;
+  --bg-card:#2E1A47;--bg-card-hover:#3B1C63;--bg-elevated:#251538;--bg-input:#1c0f2b;
+  --bg-hover:rgba(168,139,250,.08);--bg-active:rgba(168,139,250,.15);
+  --text-primary:#ffffff;--text-secondary:rgba(237,233,254,.85);
+  --text-tertiary:rgba(200,184,255,.6);--text-muted:rgba(200,184,255,.45);
+  --border-primary:rgba(168,139,250,.15);--border-secondary:rgba(168,139,250,.25);--border-strong:rgba(168,139,250,.4);
+  --accent-primary:#8b5cf6;--accent-secondary:#a78bfa;--accent-hover:#7c3aed;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.35);--shadow-md:0 6px 16px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.45);--shadow-xl:0 20px 48px rgba(0,0,0,.5);
+  --shadow-accent:0 8px 24px rgba(124,58,237,.4);--shadow-accent-lg:0 16px 40px rgba(124,58,237,.5);
+  --scrollbar-track:rgba(46,26,71,.5);--scrollbar-thumb:rgba(168,139,250,.4);--scrollbar-thumb-hover:rgba(168,139,250,.6);
+  color-scheme:dark;
+}
+
+[data-theme="light"]{
+  --bg-primary:#f7f5fc;--bg-secondary:#ffffff;--bg-tertiary:#f0ecfc;
+  --bg-card:#ffffff;--bg-card-hover:#f9f7ff;--bg-elevated:#ffffff;--bg-input:#f4f1fa;
+  --bg-hover:rgba(124,58,237,.06);--bg-active:rgba(124,58,237,.12);
+  --text-primary:#2E1A47;--text-secondary:#4c1d95;
+  --text-tertiary:#6d28d9;--text-muted:#a69bbd;
+  --border-primary:rgba(124,58,237,.12);--border-secondary:rgba(124,58,237,.2);--border-strong:rgba(124,58,237,.35);
+  --accent-primary:#7c3aed;--accent-secondary:#8b5cf6;--accent-hover:#6d28d9;
+  --shadow-sm:0 1px 3px rgba(46,26,71,.08),0 1px 2px rgba(46,26,71,.06);
+  --shadow-md:0 4px 12px rgba(46,26,71,.1),0 2px 4px rgba(46,26,71,.06);
+  --shadow-lg:0 12px 32px rgba(46,26,71,.12),0 4px 8px rgba(46,26,71,.06);
+  --shadow-xl:0 20px 48px rgba(46,26,71,.15),0 8px 16px rgba(46,26,71,.08);
+  --shadow-accent:0 8px 24px rgba(124,58,237,.25);--shadow-accent-lg:0 16px 40px rgba(124,58,237,.35);
+  --scrollbar-track:rgba(124,58,237,.08);--scrollbar-thumb:rgba(124,58,237,.35);--scrollbar-thumb-hover:rgba(124,58,237,.55);
+  color-scheme:light;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*:focus{outline:none}
+*:focus-visible{outline:2px solid var(--accent-secondary);outline-offset:2px;border-radius:4px}
+
+html{scroll-behavior:smooth;scroll-padding-top:100px;-webkit-overflow-scrolling:touch}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  .ambient-blob{display:none!important}
+  body::before{display:none!important}
+}
+
+body{
+  font-family:var(--font-body);font-size:14px;line-height:1.55;
+  color:var(--text-primary);background:var(--bg-primary);
+  min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeSpeed;overflow-x:hidden;position:relative;
+  overscroll-behavior-y:none;transition:background-color .3s ease,color .3s ease;
+}
+
+@media (min-width: 769px){
+  body::before{
+    content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  [data-theme="dark"] body::before{
+    background:
+      radial-gradient(circle at 15% 15%,rgba(168,139,250,.12) 0%,transparent 45%),
+      radial-gradient(circle at 85% 20%,rgba(99,102,241,.1) 0%,transparent 50%),
+      radial-gradient(circle at 50% 90%,rgba(139,92,246,.08) 0%,transparent 55%);
+  }
+  [data-theme="light"] body::before{
+    background:
+      radial-gradient(circle at 15% 15%,rgba(168,139,250,.12) 0%,transparent 45%),
+      radial-gradient(circle at 85% 20%,rgba(99,102,241,.06) 0%,transparent 50%),
+      radial-gradient(circle at 50% 90%,rgba(139,92,246,.05) 0%,transparent 55%);
+  }
+}
+
+.ambient-blob{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(50px);
+  opacity:.3;
+  pointer-events:none;
+  z-index:-1;
+  will-change:transform;
+  transform:translateZ(0);
+}
+.ambient-blob.b1{
+  top:-80px;left:-60px;width:240px;height:240px;
+  background:radial-gradient(circle,rgba(139,92,246,.5),transparent 70%);
+  animation:blobDrift1 22s ease-in-out infinite;
+}
+.ambient-blob.b2{
+  top:20%;right:-100px;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(99,102,241,.4),transparent 70%);
+  animation:blobDrift2 26s ease-in-out infinite;
+}
+.ambient-blob.b3{
+  bottom:-120px;left:30%;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(236,72,153,.25),transparent 70%);
+  animation:blobDrift3 30s ease-in-out infinite;
+}
+
+@media (display-mode: standalone){.pwa-install-btn{display:none!important}}
+
+h1,h2,h3,h4,h5{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.25}
+button{font-family:inherit;cursor:pointer;border:none;background:none;font-size:inherit}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--scrollbar-track);border-radius:8px}
+::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:8px;border:2px solid var(--scrollbar-track)}
+::-webkit-scrollbar-thumb:hover{background:var(--scrollbar-thumb-hover)}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translate3d(0,20px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes fadeDown{from{opacity:0;transform:translate3d(0,-20px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes fadeLeft{from{opacity:0;transform:translate3d(-16px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes modalPop{0%{opacity:0;transform:scale(.9) translate3d(0,24px,0)}60%{opacity:1;transform:scale(1.02) translate3d(0,-4px,0)}100%{opacity:1;transform:scale(1) translate3d(0,0,0)}}
+@keyframes shake{0%,100%{transform:translate3d(0,0,0)}20%{transform:translate3d(-4px,0,0)}40%{transform:translate3d(4px,0,0)}60%{transform:translate3d(-3px,0,0)}80%{transform:translate3d(3px,0,0)}}
+@keyframes toastIn{0%{opacity:0;transform:translate3d(0,-40px,0) scale(.85)}60%{opacity:1;transform:translate3d(0,6px,0) scale(1.02)}100%{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes toastOut{0%{opacity:1;transform:translate3d(0,0,0) scale(1)}100%{opacity:0;transform:translate3d(0,-30px,0) scale(.85)}}
+@keyframes progressBar{from{width:100%}to{width:0}}
+@keyframes countUp{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
+@keyframes themeSwitch{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.15)}100%{transform:rotate(360deg) scale(1)}}
+@keyframes slideUpStagger{from{opacity:0;transform:translate3d(0,24px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes installPulse{0%,100%{box-shadow:0 0 0 0 rgba(168,139,250,.6),var(--shadow-accent)}50%{box-shadow:0 0 0 12px rgba(168,139,250,0),var(--shadow-accent)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes jelly{0%,100%{transform:scale(1,1)}25%{transform:scale(.95,1.05)}50%{transform:scale(1.05,.95)}75%{transform:scale(.98,1.02)}}
+@keyframes rubberBand{0%{transform:scale(1,1)}30%{transform:scale(1.15,.85)}40%{transform:scale(.85,1.15)}50%{transform:scale(1.08,.92)}65%{transform:scale(.95,1.05)}75%{transform:scale(1.02,.98)}100%{transform:scale(1,1)}}
+@keyframes wobble{0%{transform:translate3d(0,0,0)}15%{transform:translate3d(-6px,0,0) rotate3d(0,0,1,-3deg)}30%{transform:translate3d(4px,0,0) rotate3d(0,0,1,2deg)}45%{transform:translate3d(-4px,0,0) rotate3d(0,0,1,-2deg)}60%{transform:translate3d(2px,0,0) rotate3d(0,0,1,1deg)}75%{transform:translate3d(-1px,0,0) rotate3d(0,0,1,-1deg)}100%{transform:translate3d(0,0,0)}}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.14)}28%{transform:scale(1)}42%{transform:scale(1.14)}70%{transform:scale(1)}}
+@keyframes swing{20%{transform:rotate3d(0,0,1,15deg)}40%{transform:rotate3d(0,0,1,-10deg)}60%{transform:rotate3d(0,0,1,5deg)}80%{transform:rotate3d(0,0,1,-5deg)}100%{transform:rotate3d(0,0,1,0deg)}}
+@keyframes tada{0%{transform:scale(1)}10%,20%{transform:scale(.9) rotate3d(0,0,1,-3deg)}30%,50%,70%,90%{transform:scale(1.12) rotate3d(0,0,1,3deg)}40%,60%,80%{transform:scale(1.12) rotate3d(0,0,1,-3deg)}100%{transform:scale(1)}}
+@keyframes flipInY{0%{opacity:0;transform:perspective(400px) rotate3d(0,1,0,90deg)}40%{transform:perspective(400px) rotate3d(0,1,0,-20deg)}60%{opacity:1;transform:perspective(400px) rotate3d(0,1,0,10deg)}80%{transform:perspective(400px) rotate3d(0,1,0,-5deg)}100%{opacity:1;transform:perspective(400px)}}
+@keyframes zoomInRotate{0%{opacity:0;transform:scale(.4) rotate(-20deg)}60%{opacity:1;transform:scale(1.1) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes undoSpin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(-180deg) scale(1.15)}100%{transform:rotate(-360deg) scale(1)}}
+@keyframes trashDump{0%{transform:scale(1) rotate(0);opacity:1}30%{transform:scale(1.1) rotate(-8deg)}60%{transform:scale(.9) rotate(8deg) translateY(6px);opacity:.8}100%{transform:scale(0) rotate(20deg) translateY(20px);opacity:0}}
+@keyframes blobDrift1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,30px) scale(1.15)}66%{transform:translate(-20px,50px) scale(.95)}}
+@keyframes blobDrift2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-50px,20px) scale(1.1)}66%{transform:translate(30px,-30px) scale(.92)}}
+@keyframes blobDrift3{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-40px) scale(1.08)}66%{transform:translate(-40px,20px) scale(.95)}}
+@keyframes ripple{0%{transform:scale(0);opacity:.55}100%{transform:scale(2.6);opacity:0}}
+@keyframes bounceSoft{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes skewShake{0%,100%{transform:skewX(0)}25%{transform:skewX(-8deg)}75%{transform:skewX(8deg)}}
+@keyframes slideInBounce{0%{opacity:0;transform:translateX(40px)}60%{opacity:1;transform:translateX(-6px)}80%{transform:translateX(3px)}100%{transform:translateX(0)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 12px rgba(139,92,246,.5),0 0 24px rgba(139,92,246,.25)}50%{box-shadow:0 0 22px rgba(139,92,246,.85),0 0 44px rgba(139,92,246,.45)}}
+@keyframes popIn{0%{opacity:0;transform:scale(.85)}60%{opacity:1;transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes toothEnter{0%{opacity:0;transform:translateY(20px) scale(.85) rotate(-8deg)}60%{opacity:1;transform:translateY(-4px) scale(1.05) rotate(2deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+@keyframes rowEnter{0%{opacity:0;transform:translate3d(-20px,0,0)}100%{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes cardEnter{0%{opacity:0;transform:translateY(24px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes statEnter{0%{opacity:0;transform:translateY(30px) scale(.95)}60%{opacity:1;transform:translateY(-3px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
+
+.app{min-height:100vh;display:flex;flex-direction:column;animation:fadeIn .5s ease}
+
+.header{
+  position:sticky;top:0;z-index:100;
+  background:var(--bg-elevated);border-bottom:1px solid var(--border-primary);
+  box-shadow:var(--shadow-sm);padding-top:var(--safe-top);
+  transition:background-color .3s ease,border-color .3s ease,box-shadow .3s ease;
+  contain:layout style;
+  animation:fadeDown .55s var(--ease-smooth);
+  overflow:hidden;
+}
+.header::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent-primary),var(--accent-secondary),transparent);
+  background-size:200% 100%;
+  animation:gradientShift 4s linear infinite;
+  opacity:.7;pointer-events:none;
+}
+.header.scrolled{box-shadow:var(--shadow-md)}
+.header-inner{display:flex;align-items:center;gap:20px;padding:14px 24px;max-width:1600px;margin:0 auto;width:100%}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0;cursor:pointer;transition:transform .3s var(--ease-bounce)}
+.brand:hover{transform:translate3d(0,-1px,0)}
+.brand:active{transform:scale(.97)}
+.brand-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,var(--purple-500),var(--purple-700));
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-size:22px;box-shadow:var(--shadow-accent);
+  position:relative;overflow:hidden;
+  transition:transform .35s var(--ease-bounce);
+  animation:glowPulse 3s ease-in-out infinite;
+}
+.brand-icon::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,.5),transparent 70%);
+  transform:translate3d(-100%,0,0);transition:transform .7s;
+}
+.brand:hover .brand-icon::after{transform:translate3d(100%,0,0)}
+.brand:hover .brand-icon{transform:rotate(-12deg) scale(1.12)}
+.brand:hover .brand-icon i{animation:tada .9s ease both}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-title{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text-primary);letter-spacing:-.02em}
+.brand-title span{color:var(--accent-primary)}
+.brand-sub{font-size:11px;color:var(--text-tertiary);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:520px;position:relative;margin:0 auto}
+.search-bar{
+  width:100%;padding:11px 44px 11px 44px;
+  background:var(--bg-input);border:1.5px solid var(--border-primary);
+  border-radius:var(--radius-full);font-size:14px;color:var(--text-primary);
+  transition:background-color .25s ease,border-color .25s ease,box-shadow .35s ease,transform .3s var(--ease-spring);
+  -webkit-appearance:none;appearance:none;
+}
+.search-bar::-webkit-search-cancel-button,
+.search-bar::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+.search-bar::placeholder{color:var(--text-muted)}
+.search-bar:hover{background:var(--bg-hover);border-color:var(--border-secondary)}
+.search-bar:focus{background:var(--bg-secondary);border-color:var(--accent-primary);box-shadow:0 0 0 4px rgba(139,92,246,.18);transform:scale(1.015)}
+.search-icon{
+  position:absolute;left:16px;top:50%;
+  transform:translate3d(0,-50%,0);
+  color:var(--text-muted);font-size:15px;pointer-events:none;
+  transition:color .25s ease,transform .35s var(--ease-bounce);
+  z-index:2;
+}
+.search-wrap:focus-within .search-icon{color:var(--accent-primary);transform:translate3d(0,-50%,0) scale(1.2) rotate(-12deg)}
+.search-wrap.has-value .search-icon{color:var(--accent-primary)}
+.search-clear{
+  position:absolute;right:12px;top:50%;transform:translate3d(0,-50%,0);
+  width:24px;height:24px;border-radius:50%;
+  background:var(--bg-hover);color:var(--text-primary);font-size:10px;
+  display:none;align-items:center;justify-content:center;
+  transition:background-color .2s ease,transform .25s var(--ease-bounce);
+  z-index:2;cursor:pointer;
+}
+.search-clear:hover{background:var(--bg-active);transform:translate3d(0,-50%,0) rotate(90deg) scale(1.15)}
+.search-clear:active{transform:translate3d(0,-50%,0) rotate(180deg) scale(.9)}
+.search-wrap.has-value .search-clear{display:flex;animation:popIn .35s var(--ease-bounce)}
+
+.header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 18px;border-radius:var(--radius-md);
+  font-size:13.5px;font-weight:600;
+  transition:transform .2s var(--ease-bounce),box-shadow .25s ease,background-color .2s ease,border-color .2s ease,color .2s ease;
+  white-space:nowrap;position:relative;overflow:hidden;border:1px solid transparent;
+  will-change:transform;-webkit-user-select:none;user-select:none;
+}
+.btn:active{transform:scale(.95);transition-duration:.08s}
+.btn-primary{background:linear-gradient(135deg,var(--purple-500),var(--purple-700));color:white;box-shadow:var(--shadow-accent)}
+.btn-primary:hover{transform:translate3d(0,-3px,0);box-shadow:var(--shadow-accent-lg)}
+.btn-ghost{background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border-primary)}
+.btn-ghost:hover{background:var(--bg-hover);border-color:var(--border-secondary);color:var(--text-primary);transform:translate3d(0,-2px,0);box-shadow:var(--shadow-sm)}
+.btn-danger{background:var(--red-50);color:var(--red-600);border:1px solid var(--red-100)}
+.btn-danger:hover{background:var(--red-500);color:white;border-color:var(--red-500);transform:translate3d(0,-3px,0);box-shadow:0 8px 20px rgba(239,68,68,.35)}
+.btn-success{background:linear-gradient(135deg,var(--green-500),var(--green-700));color:white;box-shadow:0 6px 20px rgba(34,197,94,.3)}
+.btn-success:hover{transform:translate3d(0,-3px,0);box-shadow:0 14px 32px rgba(34,197,94,.5)}
+.btn-whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);color:white;box-shadow:0 6px 20px rgba(37,211,102,.3)}
+.btn-whatsapp:hover{transform:translate3d(0,-3px,0);box-shadow:0 14px 32px rgba(37,211,102,.5)}
+.btn-image{background:linear-gradient(135deg,var(--purple-500),var(--purple-700));color:white;box-shadow:var(--shadow-accent)}
+.btn-image:hover{transform:translate3d(0,-3px,0);box-shadow:var(--shadow-accent-lg)}
+.btn-sm{padding:7px 12px;font-size:12px;border-radius:var(--radius-sm);gap:6px}
+
+.ripple-circle{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.55);
+  pointer-events:none;
+  transform:scale(0);
+  animation:ripple .7s ease-out forwards;
+  width:12px;height:12px;
+}
+
+.theme-toggle{
+  width:42px;height:42px;border-radius:var(--radius-md);
+  background:var(--bg-card);border:1px solid var(--border-primary);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-secondary);font-size:16px;
+  transition:background-color .25s ease,border-color .25s ease,color .25s ease,transform .3s var(--ease-bounce),box-shadow .25s ease;
+  cursor:pointer;position:relative;overflow:hidden;flex-shrink:0;
+}
+.theme-toggle:hover{background:var(--bg-hover);border-color:var(--border-secondary);color:var(--accent-primary);transform:translate3d(0,-3px,0);box-shadow:var(--shadow-sm)}
+.theme-toggle:active{transform:scale(.9)}
+.theme-toggle.switching{animation:themeSwitch .6s var(--ease-bounce)}
+.theme-toggle i{transition:transform .3s ease}
+[data-theme="dark"] .theme-toggle .fa-moon{display:none}
+[data-theme="light"] .theme-toggle .fa-sun{display:none}
+
+.pwa-install-btn{
+  background:linear-gradient(135deg,var(--accent-primary),var(--accent-hover));
+  color:white;border:none;animation:installPulse 2.5s ease-in-out infinite;
+  font-weight:700;box-shadow:var(--shadow-accent);
+}
+.pwa-install-btn:hover{transform:translate3d(0,-3px,0) scale(1.03);animation-play-state:paused}
+
+.main{flex:1;padding:24px;max-width:1600px;margin:0 auto;width:100%}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{
+  background:var(--bg-card);border:1px solid var(--border-primary);
+  border-radius:var(--radius-xl);padding:20px;box-shadow:var(--shadow-sm);
+  position:relative;overflow:hidden;
+  transition:transform .3s var(--ease-smooth),box-shadow .3s ease,border-color .3s ease;
+  cursor:default;animation:statEnter .65s var(--ease-smooth) both;
+  will-change:transform;contain:layout style;
+}
+.stat-card:nth-child(1){animation-delay:.05s}
+.stat-card:nth-child(2){animation-delay:.14s}
+.stat-card:nth-child(3){animation-delay:.23s}
+.stat-card:nth-child(4){animation-delay:.32s}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--purple-500),var(--indigo-500));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .45s var(--ease-smooth);
+}
+.stat-card:hover::before{transform:scaleX(1)}
+.stat-card:hover{transform:translate3d(0,-8px,0);box-shadow:var(--shadow-lg);border-color:var(--border-secondary)}
+.stat-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.stat-icon{
+  width:44px;height:44px;border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  transition:transform .35s var(--ease-bounce);
+}
+.stat-icon.teal{background:rgba(139,92,246,.15);color:var(--accent-primary)}
+.stat-icon.danger{background:rgba(239,68,68,.15);color:var(--red-500)}
+.stat-icon.success{background:rgba(34,197,94,.15);color:var(--green-500)}
+.stat-icon.warning{background:rgba(249,115,22,.15);color:var(--orange-500)}
+.stat-card:hover .stat-icon{transform:rotate(-14deg) scale(1.18)}
+.stat-trend{font-size:11px;font-weight:600;padding:4px 10px;border-radius:var(--radius-full);display:inline-flex;align-items:center;gap:4px}
+.stat-trend.up{background:rgba(34,197,94,.15);color:var(--green-600)}
+.stat-trend.down{background:rgba(239,68,68,.15);color:var(--red-600)}
+.stat-trend.neutral{background:rgba(139,92,246,.15);color:var(--accent-primary)}
+.stat-value{
+  font-family:var(--font-display);font-weight:800;font-size:28px;
+  color:var(--text-primary);line-height:1;margin-bottom:6px;
+  animation:countUp .65s var(--ease-smooth) both;position:relative;z-index:1;
+}
+.stat-card.danger .stat-value{color:var(--red-600)}
+.stat-card.success .stat-value{color:var(--green-600)}
+.stat-label{font-size:12.5px;color:var(--text-tertiary);font-weight:500;position:relative;z-index:1}
+
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.section-title{font-size:18px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:10px}
+.section-title i{color:var(--accent-primary);font-size:16px;transition:transform .35s var(--ease-bounce)}
+.section-title:hover i{transform:rotate(-14deg) scale(1.15)}
+.section-title .count-badge{
+  font-size:11px;font-weight:600;padding:3px 10px;
+  background:rgba(139,92,246,.15);color:var(--accent-primary);
+  border-radius:var(--radius-full);border:1px solid var(--border-secondary);
+}
+.section-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.patients-wrap{
+  background:var(--bg-card);border:1px solid var(--border-primary);
+  border-radius:var(--radius-xl);box-shadow:var(--shadow-sm);
+  overflow:hidden;contain:layout style;
+}
+.table-wrap{overflow-x:auto}
+.patients-table{width:100%;border-collapse:collapse;min-width:900px}
+.patients-table thead{background:var(--bg-tertiary);border-bottom:1px solid var(--border-primary)}
+.patients-table th{text-align:left;padding:14px 16px;font-size:11px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.patients-table td{padding:14px 16px;border-bottom:1px solid var(--border-primary);font-size:13.5px;color:var(--text-secondary);vertical-align:middle}
+.patients-table tbody tr{
+  transition:background-color .2s ease,transform .28s var(--ease-smooth),box-shadow .28s ease;
+  cursor:pointer;position:relative;
+  animation:rowEnter .45s var(--ease-smooth) both;
+}
+.patients-table tbody tr:hover{background:var(--bg-hover);transform:translateX(3px);box-shadow:inset 4px 0 0 var(--accent-primary)}
+.patients-table tbody tr:last-child td{border-bottom:none}
+.patient-cell{display:flex;align-items:center;gap:12px}
+.patient-avatar{
+  width:38px;height:38px;border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;color:white;flex-shrink:0;
+  font-family:var(--font-display);
+  transition:transform .35s var(--ease-bounce),box-shadow .3s ease;
+  box-shadow:var(--shadow-sm);
+}
+.patients-table tr:hover .patient-avatar{transform:scale(1.14) rotate(-7deg);box-shadow:var(--shadow-md)}
+.patient-info{display:flex;flex-direction:column;gap:1px;min-width:0}
+.patient-name{font-weight:600;color:var(--text-primary);font-size:13.5px}
+.patient-id{font-size:11px;color:var(--accent-primary);font-family:monospace;font-weight:600;opacity:.85}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--radius-full);font-size:11px;font-weight:600;white-space:nowrap}
+.badge-danger{background:rgba(239,68,68,.15);color:var(--red-600)}
+.badge-success{background:rgba(34,197,94,.15);color:var(--green-600)}
+.badge-warning{background:rgba(249,115,22,.15);color:var(--orange-600)}
+.badge-neutral{background:var(--bg-tertiary);color:var(--text-tertiary)}
+.money{font-weight:600;font-variant-numeric:tabular-nums;color:var(--text-primary)}
+.money-success{color:var(--green-600)}
+.actions-cell{display:flex;gap:6px;justify-content:flex-end;flex-wrap:nowrap}
+.action-btn{
+  width:34px;height:34px;border-radius:var(--radius-sm);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--text-tertiary);
+  background:var(--bg-tertiary);border:1px solid transparent;
+  transition:transform .22s var(--ease-bounce),background-color .2s ease,color .2s ease,box-shadow .25s ease;
+  flex-shrink:0;position:relative;overflow:hidden;
+  -webkit-user-select:none;user-select:none;
+}
+.action-btn:hover{transform:translate3d(0,-4px,0) scale(1.06);color:white}
+.action-btn:active{transform:translate3d(0,-1px,0) scale(.9)}
+.action-btn.view:hover{background:var(--purple-600);box-shadow:0 6px 16px rgba(124,58,237,.5)}
+.action-btn.edit:hover{background:var(--indigo-500);box-shadow:0 6px 16px rgba(99,102,241,.5)}
+.action-btn.pay:hover{background:var(--green-500);box-shadow:0 6px 16px rgba(34,197,94,.5)}
+.action-btn.wa:hover{background:#25D366;box-shadow:0 6px 16px rgba(37,211,102,.5)}
+.action-btn.del:hover{background:var(--red-500);box-shadow:0 6px 16px rgba(239,68,68,.5)}
+.action-btn.image{background:linear-gradient(135deg,var(--purple-500),var(--purple-700));color:white;box-shadow:var(--shadow-accent)}
+.action-btn.image:hover{background:linear-gradient(135deg,var(--purple-400),var(--purple-600));box-shadow:var(--shadow-accent-lg);transform:translate3d(0,-3px,0) scale(1.1)}
+
+.patients-cards{display:none;flex-direction:column;gap:12px;padding:12px}
+.patient-card{
+  background:var(--bg-card);border:1px solid var(--border-primary);
+  border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow-sm);
+  transition:transform .3s var(--ease-smooth),box-shadow .3s ease,border-color .3s ease;
+  animation:cardEnter .5s var(--ease-smooth) both;contain:layout style;
+}
+.patient-card:hover{transform:translate3d(0,-5px,0);box-shadow:var(--shadow-lg);border-color:var(--border-secondary)}
+.pc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px}
+.pc-actions{display:flex;gap:6px;flex-shrink:0}
+.pc-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 0;border-top:1px solid var(--border-primary);border-bottom:1px solid var(--border-primary);margin-bottom:12px}
+.pc-info-item{display:flex;flex-direction:column;gap:2px}
+.pc-info-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.pc-info-value{font-size:13.5px;font-weight:600;color:var(--text-primary)}
+.pc-balance{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:var(--radius-md);background:var(--bg-tertiary);font-size:13px}
+.pc-balance.danger{background:rgba(239,68,68,.1)}
+.pc-balance.success{background:rgba(34,197,94,.1)}
+
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;color:var(--text-tertiary);animation:fadeIn .5s ease both}
+.empty-state i{font-size:48px;color:var(--accent-secondary);margin-bottom:16px;opacity:.5;animation:float 3s ease-in-out infinite}
+.empty-state h3{font-size:18px;color:var(--text-primary);margin-bottom:6px}
+.empty-state p{font-size:13px;max-width:400px}
+
+.modal-overlay{
+  position:fixed;inset:0;z-index:1000;background:rgba(15,10,30,.72);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+  animation:fadeIn .25s ease both;
+  -webkit-overflow-scrolling:touch;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  overscroll-behavior:contain;
+}
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--bg-elevated);border:1px solid var(--border-primary);
+  border-radius:var(--radius-2xl);box-shadow:var(--shadow-xl);
+  width:100%;max-width:600px;max-height:calc(100vh - 40px);
+  display:flex;flex-direction:column;
+  animation:modalPop .45s var(--ease-smooth) both;overflow:hidden;
+  contain:layout style;
+}
+.modal.lg{max-width:820px}
+.modal.sm{max-width:440px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border-primary);background:var(--bg-tertiary);flex-shrink:0}
+.modal-title{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-primary)}
+.modal-title-icon{width:38px;height:38px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--purple-500),var(--purple-700));color:white;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--shadow-accent)}
+.modal-title-icon.green{background:linear-gradient(135deg,var(--green-500),var(--green-700));box-shadow:0 6px 20px rgba(34,197,94,.35)}
+.modal-title-icon.red{background:linear-gradient(135deg,var(--red-500),var(--red-600));box-shadow:0 6px 20px rgba(239,68,68,.35)}
+.modal-title-icon.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 6px 20px rgba(37,211,102,.35)}
+.modal-close{width:34px;height:34px;border-radius:var(--radius-md);background:var(--bg-hover);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;transition:background-color .2s ease,color .2s ease,transform .3s var(--ease-bounce);font-size:14px}
+.modal-close:hover{background:rgba(239,68,68,.15);color:var(--red-500);transform:rotate(90deg) scale(1.1)}
+.modal-close:active{transform:rotate(180deg) scale(.9)}
+.modal-body{padding:24px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--border-primary);display:flex;justify-content:flex-end;gap:10px;background:var(--bg-tertiary);flex-shrink:0;flex-wrap:wrap}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:span 2}
+.form-label{font-size:12px;font-weight:600;color:var(--text-secondary);display:flex;align-items:center;gap:6px}
+.form-label .req{color:var(--red-500)}
+
+input.form-control,
+textarea.form-control{
+  width:100%;padding:11px 14px;
+  background-color:var(--bg-input);
+  border:1.5px solid var(--border-primary);
+  border-radius:var(--radius-md);
+  font-size:13.5px;color:var(--text-primary);
+  transition:background-color .2s ease,border-color .2s ease,box-shadow .3s ease;
+  -webkit-appearance:none;appearance:none;
+}
+input.form-control::placeholder,
+textarea.form-control::placeholder{color:var(--text-muted)}
+input.form-control:hover,
+textarea.form-control:hover{background-color:var(--bg-hover);border-color:var(--border-secondary)}
+input.form-control:focus,
+textarea.form-control:focus{background-color:var(--bg-secondary);border-color:var(--accent-primary);box-shadow:0 0 0 3px rgba(139,92,246,.15);outline:none}
+textarea.form-control{resize:vertical;min-height:80px}
+.form-control.error{border-color:var(--red-500);background-color:rgba(239,68,68,.08);animation:shake .45s}
+
+input[type="date"].form-control{
+  background-image:none!important;
+  padding:11px 14px!important;
+}
+input[type="date"].form-control::-webkit-calendar-picker-indicator{
+  filter:invert(.5) sepia(1) saturate(4) hue-rotate(230deg);
+  cursor:pointer;
+  padding:0;
+  margin-left:6px;
+}
+[data-theme="light"] input[type="date"].form-control::-webkit-calendar-picker-indicator{
+  filter:invert(.4) sepia(1) saturate(4) hue-rotate(230deg);
+}
+input[type="date"].form-control::-moz-calendar-picker-indicator{
+  cursor:pointer;
+}
+
+.select-wrap{
+  position:relative;
+  display:block;
+  width:100%;
+}
+.select-wrap::after{
+  content:'';
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:0;
+  height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:6px solid #8b5cf6;
+  pointer-events:none;
+  transition:border-top-color .2s ease,transform .3s var(--ease-bounce);
+  z-index:2;
+}
+.select-wrap:hover::after{
+  border-top-color:#a78bfa;
+  transform:translateY(-50%) scale(1.15);
+}
+.select-wrap:focus-within::after{
+  border-top-color:#7c3aed;
+  transform:translateY(-50%) rotate(180deg);
+}
+[data-theme="light"] .select-wrap::after{border-top-color:#7c3aed}
+[data-theme="light"] .select-wrap:hover::after{border-top-color:#8b5cf6}
+
+select.form-control{
+  width:100%;
+  padding:11px 40px 11px 14px;
+  background-color:var(--bg-input);
+  background-image:none!important;
+  border:1.5px solid var(--border-primary);
+  border-radius:var(--radius-md);
+  font-size:13.5px;
+  color:var(--text-primary);
+  font-family:inherit;
+  line-height:1.4;
+  cursor:pointer;
+  -webkit-appearance:none!important;
+  -moz-appearance:none!important;
+  appearance:none!important;
+  transition:background-color .2s ease,border-color .2s ease,box-shadow .3s ease;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  overflow:hidden;
+}
+select.form-control:hover{background-color:var(--bg-hover);border-color:var(--border-secondary)}
+select.form-control:focus,
+select.form-control:focus-visible{
+  background-color:var(--bg-secondary);
+  border-color:var(--accent-primary);
+  box-shadow:0 0 0 3px rgba(139,92,246,.15);
+  outline:none;
+}
+select.form-control:-moz-focusring{color:transparent;text-shadow:0 0 0 var(--text-primary)}
+[data-theme="dark"] select.form-control option{background:#251538;color:white}
+[data-theme="light"] select.form-control option{background:white;color:#2E1A47}
+
+.profile-header{display:flex;gap:20px;align-items:center;padding:24px;background:var(--bg-tertiary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);margin-bottom:24px;position:relative;overflow:hidden}
+.profile-header::before{content:'';position:absolute;top:-50%;right:-10%;width:200px;height:200px;background:radial-gradient(circle,rgba(139,92,246,.3),transparent 70%);border-radius:50%}
+.profile-avatar{width:76px;height:76px;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:white;font-family:var(--font-display);flex-shrink:0;box-shadow:var(--shadow-lg);position:relative;z-index:1}
+.profile-info{flex:1;min-width:0;position:relative;z-index:1}
+.profile-name{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--text-primary);margin-bottom:4px;letter-spacing:-.02em}
+.profile-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--text-secondary)}
+.profile-meta span{display:flex;align-items:center;gap:6px}
+.profile-meta i{color:var(--accent-primary);font-size:12px}
+
+.tabs{display:flex;gap:4px;background:var(--bg-tertiary);padding:4px;border-radius:var(--radius-md);margin-bottom:20px;overflow-x:auto}
+.tab{
+  flex:1;min-width:max-content;padding:10px 16px;border-radius:var(--radius-sm);
+  font-size:13px;font-weight:600;color:var(--text-tertiary);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background-color .2s ease,color .2s ease,transform .25s var(--ease-bounce);
+  white-space:nowrap;position:relative;overflow:hidden;
+}
+.tab:hover{color:var(--text-primary);background:var(--bg-hover)}
+.tab:active{transform:scale(.97)}
+.tab.active{background:linear-gradient(135deg,var(--purple-500),var(--purple-700));color:white;box-shadow:var(--shadow-accent)}
+.tab i{font-size:13px}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeUp .4s var(--ease-smooth) both}
+
+.chart-note{background:rgba(139,92,246,.1);border:1px solid var(--border-secondary);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px}
+.chart-note i{color:var(--accent-primary);margin-top:2px;flex-shrink:0}
+.dental-chart{display:flex;flex-direction:column;gap:20px}
+.chart-row{display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap}
+.chart-row-label{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;writing-mode:vertical-rl;transform:rotate(180deg);padding:4px 0}
+.tooth{
+  width:46px;height:56px;border-radius:12px 12px 20px 20px;
+  background:var(--bg-tertiary);border:2px solid var(--border-primary);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:700;font-size:13px;color:var(--text-secondary);
+  cursor:pointer;
+  transition:transform .3s var(--ease-bounce),background-color .2s ease,border-color .2s ease,box-shadow .25s ease;
+  position:relative;flex-shrink:0;-webkit-user-select:none;user-select:none;
+}
+.tooth:hover{transform:translate3d(0,-6px,0) scale(1.16) rotate(-3deg);border-color:var(--accent-primary);background:var(--bg-hover);color:var(--accent-primary);box-shadow:var(--shadow-md);z-index:2}
+.tooth:active{transform:translate3d(0,-3px,0) scale(1.06)}
+.tooth.has-treatment{background:linear-gradient(135deg,var(--purple-500),var(--purple-700));color:white;border-color:transparent;box-shadow:var(--shadow-accent)}
+.tooth.has-treatment:hover{transform:translate3d(0,-8px,0) scale(1.2) rotate(-5deg);box-shadow:var(--shadow-accent-lg)}
+.tooth.has-urgent{background:linear-gradient(135deg,var(--red-500),var(--red-600));color:white;border-color:transparent;box-shadow:0 6px 16px rgba(239,68,68,.5)}
+.tooth.has-warning{background:linear-gradient(135deg,var(--orange-500),var(--orange-600));color:white;border-color:transparent;box-shadow:0 6px 16px rgba(249,115,22,.5)}
+.tooth .dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:white;box-shadow:0 0 0 2px rgba(255,255,255,.4)}
+.tooth-number{font-size:11px;font-weight:800;line-height:1}
+.tooth-icon{font-size:11px;margin-top:1px;opacity:.85}
+.chart-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-secondary),transparent);margin:6px 0;position:relative}
+.chart-divider::after{content:'UPPER / LOWER';position:absolute;top:-8px;left:50%;transform:translate3d(-50%,0,0);background:var(--bg-elevated);padding:0 12px;font-size:9px;color:var(--text-muted);letter-spacing:.15em;font-weight:700}
+
+.log-list{display:flex;flex-direction:column;gap:12px}
+.log-item{
+  display:flex;gap:14px;padding:16px;background:var(--bg-card);
+  border:1px solid var(--border-primary);border-radius:var(--radius-lg);
+  transition:transform .3s var(--ease-smooth),box-shadow .3s ease,border-color .3s ease;
+  position:relative;contain:layout style;
+}
+.log-item:hover{transform:translate3d(8px,0,0);box-shadow:var(--shadow-md);border-color:var(--border-secondary)}
+.log-dot{width:36px;height:36px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:white;background:linear-gradient(135deg,var(--purple-500),var(--purple-700));font-family:var(--font-display);flex-shrink:0;box-shadow:var(--shadow-accent)}
+.log-body{flex:1;min-width:0}
+.log-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.log-procedure{font-weight:700;color:var(--text-primary);font-size:14px}
+.log-date{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+.log-notes{font-size:12.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px}
+.log-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.log-tooth-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(139,92,246,.15);color:var(--accent-primary);border-radius:var(--radius-full);font-size:11px;font-weight:700}
+.log-fee{font-weight:700;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.log-actions{display:flex;gap:4px}
+.log-actions .action-btn{width:28px;height:28px;font-size:11px}
+
+.billing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.bill-card{padding:18px;border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border-primary);transition:transform .3s var(--ease-smooth),box-shadow .3s ease,border-color .3s ease}
+.bill-card:hover{transform:translate3d(0,-6px,0) scale(1.02);box-shadow:var(--shadow-md);border-color:var(--border-secondary)}
+.bill-card.paid{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.25)}
+.bill-card.due{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25)}
+.bill-label{font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.bill-value{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.bill-card.due .bill-value{color:var(--red-600)}
+.bill-card.paid .bill-value{color:var(--green-600)}
+.payment-list{margin-top:20px}
+.payment-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--bg-tertiary);border-left:3px solid var(--green-500);border-radius:var(--radius-md);margin-bottom:8px;transition:transform .3s var(--ease-smooth),box-shadow .3s ease}
+.payment-item:hover{transform:translate3d(8px,0,0);box-shadow:var(--shadow-sm)}
+.payment-meta{display:flex;flex-direction:column;gap:2px}
+.payment-date{font-size:12px;color:var(--text-muted)}
+.payment-method{font-size:11px;color:var(--text-muted)}
+.payment-amount{font-weight:700;color:var(--green-600);font-variant-numeric:tabular-nums}
+.payment-actions{display:flex;gap:4px;margin-left:12px}
+.payment-actions .action-btn{width:26px;height:26px;font-size:10px}
+
+.wa-preview{background:rgba(37,211,102,.08);padding:16px;border-radius:var(--radius-lg);margin-bottom:16px;border:1px solid rgba(37,211,102,.25)}
+.wa-preview-label{font-size:11px;font-weight:700;color:var(--green-600);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.wa-bubble{background:white;padding:12px 14px;border-radius:12px 12px 12px 2px;box-shadow:var(--shadow-sm);font-size:13px;line-height:1.6;color:#1f2937;white-space:pre-wrap;word-wrap:break-word;max-height:200px;overflow-y:auto}
+.wa-actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.wa-action{padding:12px;border-radius:var(--radius-md);background:var(--bg-card);border:1.5px solid var(--border-primary);display:flex;align-items:center;gap:10px;transition:background-color .2s ease,border-color .2s ease,transform .25s var(--ease-bounce),box-shadow .25s ease;text-align:left;cursor:pointer}
+.wa-action:hover{border-color:rgba(37,211,102,.5);background:rgba(37,211,102,.08);transform:translate3d(0,-4px,0);box-shadow:var(--shadow-sm)}
+.wa-action.active{border-color:#25D366;background:rgba(37,211,102,.12);box-shadow:0 6px 16px rgba(37,211,102,.3)}
+.wa-action-icon{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;background:rgba(37,211,102,.15);color:var(--green-600);font-size:16px;flex-shrink:0}
+.wa-action-text{display:flex;flex-direction:column;gap:1px;min-width:0}
+.wa-action-title{font-size:12.5px;font-weight:700;color:var(--text-primary)}
+.wa-action-sub{font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.toast-container{position:fixed;top:calc(80px + var(--safe-top));left:50%;transform:translate3d(-50%,0,0);z-index:2000;display:flex;flex-direction:column;gap:10px;width:calc(100% - 32px);max-width:400px;pointer-events:none}
+.toast{
+  pointer-events:auto;padding:14px 18px;border-radius:var(--radius-lg);
+  background:var(--bg-elevated);border:1px solid var(--border-primary);
+  border-left:4px solid var(--accent-primary);box-shadow:var(--shadow-xl);
+  display:flex;align-items:flex-start;gap:12px;
+  animation:toastIn .45s var(--ease-bounce) both;
+  position:relative;overflow:hidden;
+}
+.toast.removing{animation:toastOut .28s ease forwards}
+.toast.success{border-left-color:var(--green-500)}
+.toast.error{border-left-color:var(--red-500)}
+.toast.warning{border-left-color:var(--orange-500)}
+.toast.whatsapp{border-left-color:#25D366}
+.toast.undo{border-left-color:#f59e0b;background:linear-gradient(135deg,var(--bg-elevated),rgba(245,158,11,.08))}
+.toast-icon{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:14px;color:white;flex-shrink:0;background:linear-gradient(135deg,var(--purple-500),var(--purple-700))}
+.toast.success .toast-icon{background:linear-gradient(135deg,var(--green-500),var(--green-700))}
+.toast.error .toast-icon{background:linear-gradient(135deg,var(--red-500),var(--red-600))}
+.toast.warning .toast-icon{background:linear-gradient(135deg,var(--orange-500),var(--orange-600))}
+.toast.whatsapp .toast-icon{background:linear-gradient(135deg,#25D366,#128C7E)}
+.toast.undo .toast-icon{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.toast-body{flex:1;min-width:0}
+.toast-title{font-weight:700;font-size:13px;color:var(--text-primary);margin-bottom:2px}
+.toast-msg{font-size:12.5px;color:var(--text-secondary);line-height:1.5}
+.toast-undo-btn{
+  margin-top:8px;padding:6px 12px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,#f59e0b,#d97706);color:white;
+  font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;
+  transition:transform .25s var(--ease-bounce),box-shadow .25s ease;
+  cursor:pointer;border:none;
+}
+.toast-undo-btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 20px rgba(245,158,11,.45)}
+.toast-progress{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--purple-500),var(--purple-700));animation:progressBar linear forwards}
+.toast.success .toast-progress{background:var(--green-500)}
+.toast.error .toast-progress{background:var(--red-500)}
+.toast.warning .toast-progress{background:var(--orange-500)}
+.toast.whatsapp .toast-progress{background:#25D366}
+.toast.undo .toast-progress{background:#f59e0b}
+
+.update-toast{
+  position:fixed;top:calc(20px + var(--safe-top));left:50%;transform:translate3d(-50%,0,0);
+  z-index:2100;max-width:420px;width:calc(100% - 32px);
+  background:linear-gradient(135deg,var(--purple-500),var(--purple-700));
+  border-radius:var(--radius-lg);padding:14px 18px;
+  box-shadow:var(--shadow-xl);display:none;align-items:center;gap:12px;color:white;
+  animation:fadeDown .4s var(--ease-bounce) both;
+}
+.update-toast.show{display:flex}
+.update-toast i{font-size:18px}
+.update-toast-text{flex:1;font-size:13px;font-weight:600}
+.update-toast-btn{padding:7px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;background:white;color:var(--purple-700);transition:transform .25s var(--ease-bounce)}
+.update-toast-btn:hover{transform:translate3d(0,-2px,0) scale(1.05);box-shadow:0 8px 18px rgba(0,0,0,.25)}
+
+.reveal-on-scroll{opacity:0;transform:translate3d(0,28px,0);transition:opacity .6s var(--ease-smooth),transform .6s var(--ease-smooth)}
+.reveal-on-scroll.revealed{opacity:1;transform:translate3d(0,0,0)}
+
+.stat-card,.patient-card,.log-item,.payment-item,.patients-wrap,.modal,.header,.btn,.action-btn,.tooth,.theme-toggle{
+  transform:translate3d(0,0,0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+
+.deleted-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:var(--radius-full);
+  background:rgba(245,158,11,.15);color:#d97706;
+  border:1px solid rgba(245,158,11,.35);
+  font-size:12px;font-weight:700;
+  transition:transform .3s var(--ease-bounce),box-shadow .3s ease,background-color .25s ease;
+  cursor:pointer;
+}
+.deleted-badge:hover{transform:scale(1.08) translateY(-3px);background:rgba(245,158,11,.25);box-shadow:0 8px 20px rgba(245,158,11,.35)}
+.deleted-badge:active{transform:scale(.94)}
+.deleted-list{display:flex;flex-direction:column;gap:12px}
+.deleted-item{
+  display:flex;align-items:center;gap:14px;
+  padding:16px;border-radius:var(--radius-lg);
+  background:var(--bg-card);border:1.5px dashed var(--border-secondary);
+  transition:transform .35s var(--ease-smooth),box-shadow .35s ease,border-color .3s ease;
+  position:relative;overflow:hidden;
+}
+.deleted-item:hover{transform:translate3d(0,-4px,0);box-shadow:var(--shadow-md);border-color:rgba(245,158,11,.55)}
+.deleted-avatar{
+  width:44px;height:44px;border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:15px;color:white;flex-shrink:0;
+  font-family:var(--font-display);box-shadow:var(--shadow-sm);
+  filter:grayscale(.35);
+  transition:transform .3s var(--ease-bounce),filter .3s ease;
+}
+.deleted-item:hover .deleted-avatar{filter:grayscale(0)}
+.deleted-info{flex:1;min-width:0}
+.deleted-name{font-weight:700;color:var(--text-primary);font-size:14px;margin-bottom:3px}
+.deleted-meta{font-size:11.5px;color:var(--text-muted);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.deleted-meta span{display:inline-flex;align-items:center;gap:4px}
+.deleted-meta i{font-size:10px;color:var(--accent-primary)}
+.deleted-actions{display:flex;gap:6px;flex-shrink:0}
+.deleted-restore-btn{
+  padding:8px 14px;border-radius:var(--radius-md);
+  background:linear-gradient(135deg,var(--green-500),var(--green-700));
+  color:white;font-size:12px;font-weight:700;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:transform .28s var(--ease-bounce),box-shadow .28s ease;
+  border:none;cursor:pointer;white-space:nowrap;
+}
+.deleted-restore-btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 24px rgba(34,197,94,.45)}
+.deleted-restore-btn:active{transform:scale(.95)}
+.deleted-count-pill{
+  font-size:10px;padding:2px 7px;border-radius:999px;
+  background:rgba(245,158,11,.25);color:#d97706;font-weight:700;
+  margin-left:6px;min-width:18px;text-align:center;display:inline-block;
+}
+.patient-row-deleting{animation:trashDump .55s var(--ease-bounce) forwards!important;pointer-events:none!important}
+
+#receiptCanvas{
+  position:fixed;left:-99999px;top:0;width:880px;
+  background:#ffffff;color:#1a1a1a;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  padding:0;margin:0;z-index:-1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;box-sizing:border-box;
+}
+#receiptCanvas *,#receiptCanvas *::before,#receiptCanvas *::after{box-sizing:border-box}
+
+.rcpt-tooth{
+  width:42px;
+  height:54px;
+  border-radius:10px 10px 18px 18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  box-sizing:border-box!important;
+  overflow:hidden;
+  padding:2px 4px;
+  min-width:28px;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  font-variant-numeric:tabular-nums;
+  font-weight:800;
+  font-size:12px;
+  line-height:1!important;
+  white-space:nowrap!important;
+  text-align:center;
+  vertical-align:top;
+  flex:0 0 auto;
+  position:relative;
+}
+.rcpt-tooth .rcpt-tooth-num{
+  display:block;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  font-variant-numeric:tabular-nums;
+  font-weight:800;
+  font-size:12px;
+  line-height:1!important;
+  white-space:nowrap!important;
+  text-align:center;
+}
+.rcpt-tooth .rcpt-tooth-check{
+  display:block;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  font-size:8px;
+  line-height:1!important;
+  margin-top:2px;
+  white-space:nowrap!important;
+}
+
+#printReport{display:none}
+@media print {
+  @page{size:A4 portrait;margin:14mm 12mm}
+  body{background:white!important;color:#1a1a1a!important;font-size:11pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body::before,.ambient-blob{display:none!important}
+  body > *:not(#printReport){display:none!important}
+  #printReport{display:block!important;padding:0;font-family:'Inter',system-ui,sans-serif;color:#1a1a1a}
+  .pr-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;border-bottom:3px double #7c3aed;margin-bottom:18px}
+  .pr-brand{display:flex;align-items:center;gap:12px}
+  .pr-brand-icon{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#4c1d95);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px}
+  .pr-brand-name{font-family:'Manrope',sans-serif;font-size:19pt;font-weight:800;color:#2E1A47;letter-spacing:-.5px}
+  .pr-brand-tag{font-size:10pt;color:#6d28d9;font-weight:600;letter-spacing:.5px}
+  .pr-meta{text-align:right;font-size:9.5pt;color:#4b5563;line-height:1.5}
+  .pr-meta strong{color:#2E1A47}
+  .pr-title{text-align:center;font-family:'Manrope',sans-serif;font-size:15pt;font-weight:800;color:#2E1A47;margin:0 0 6px;text-transform:uppercase;letter-spacing:1px}
+  .pr-subtitle{text-align:center;font-size:10pt;color:#6b7280;margin-bottom:18px;font-style:italic}
+  .pr-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+  .pr-stat{border:1.5px solid #d8b4fe;border-left:4px solid #7c3aed;background:#faf5ff;padding:10px 12px;border-radius:6px}
+  .pr-stat-label{font-size:8.5pt;color:#6b7280;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+  .pr-stat-value{font-family:'Manrope',sans-serif;font-size:13pt;font-weight:800;color:#2E1A47}
+  .pr-stat.danger{border-left-color:#dc2626;background:#fef2f2;border-color:#fecaca}
+  .pr-stat.danger .pr-stat-value{color:#dc2626}
+  .pr-stat.success{border-left-color:#16a34a;background:#f0fdf4;border-color:#bbf7d0}
+  .pr-stat.success .pr-stat-value{color:#16a34a}
+  .pr-stat.warning{border-left-color:#ea580c;background:#fff7ed;border-color:#fed7aa}
+  .pr-stat.warning .pr-stat-value{color:#ea580c}
+  .pr-table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:9pt}
+  .pr-table thead{background:linear-gradient(135deg,#7c3aed,#4c1d95);color:white}
+  .pr-table th{padding:9px 10px;text-align:left;font-weight:700;font-size:8.5pt;text-transform:uppercase;letter-spacing:.5px;border:1px solid #5b21b6}
+  .pr-table td{padding:8px 10px;border:1px solid #e9d5ff;color:#1f2937;vertical-align:middle}
+  .pr-table tbody tr:nth-child(even){background:#faf5ff}
+  .pr-table tbody tr:nth-child(odd){background:#ffffff}
+  .pr-table tbody tr:last-child td{border-bottom:2px solid #7c3aed}
+  .pr-table .pr-name{font-weight:700;color:#2E1A47}
+  .pr-table .pr-id{font-size:8pt;color:#7c3aed;font-family:monospace;font-weight:600}
+  .pr-table .pr-money{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+  .pr-table .pr-balance-due{color:#dc2626;font-weight:700}
+  .pr-table .pr-balance-paid{color:#16a34a;font-weight:700}
+  .pr-table th.pr-right{text-align:right}
+  .pr-summary{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:18px}
+  .pr-summary-box{border:1.5px solid #d8b4fe;border-radius:8px;padding:12px 14px;background:#faf5ff}
+  .pr-summary-box h3{font-family:'Manrope',sans-serif;font-size:11pt;color:#2E1A47;margin:0 0 8px;padding-bottom:6px;border-bottom:1.5px dashed #c4b5fd;font-weight:800}
+  .pr-summary-row{display:flex;justify-content:space-between;padding:5px 0;font-size:10pt;border-bottom:1px dotted #e9d5ff}
+  .pr-summary-row:last-child{border-bottom:none;font-weight:800;color:#2E1A47;font-size:11pt;padding-top:8px;margin-top:4px;border-top:1.5px solid #7c3aed}
+  .pr-summary-row span:last-child{font-family:'Manrope',sans-serif;font-weight:700}
+  .pr-summary-row.due span:last-child{color:#dc2626}
+  .pr-summary-row.paid span:last-child{color:#16a34a}
+  .pr-sign{display:flex;justify-content:space-between;margin-top:40px;padding-top:20px;border-top:1.5px dashed #c4b5fd}
+  .pr-sign-box{width:200px;text-align:center;font-size:9pt;color:#4b5563}
+  .pr-sign-line{border-top:1.5px solid #7c3aed;margin-bottom:6px;padding-top:6px;font-weight:700;color:#2E1A47;font-size:9.5pt}
+  .pr-footer{margin-top:18px;padding-top:12px;border-top:1.5px solid #d8b4fe;font-size:8.5pt;color:#6b7280;text-align:center;font-style:italic}
+  .pr-footer strong{color:#2E1A47}
+}
+
+@media (max-width:1024px){.search-wrap{max-width:340px}}
+@media (max-width:768px){
+  .header-inner{padding:12px 16px;gap:12px;flex-wrap:wrap}
+  .brand-title{font-size:14px}
+  .brand-sub{font-size:10px}
+  .brand-icon{width:38px;height:38px;font-size:18px}
+  .search-wrap{order:3;width:100%;max-width:100%;margin:0}
+  .header-actions{margin-left:auto}
+  .btn-text{display:none}
+  .btn-primary{padding:10px 14px}
+  .pwa-install-btn{padding:10px 12px}
+  .theme-toggle{width:38px;height:38px;font-size:14px}
+  .main{padding:16px}
+  .stat-card{padding:16px}
+  .stat-value{font-size:22px}
+  .stat-icon{width:38px;height:38px;font-size:16px}
+  .table-wrap{display:none}
+  .patients-cards{display:flex}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:span 1}
+  .modal-body{padding:18px}
+  .modal-head{padding:16px 18px}
+  .modal-foot{padding:14px 18px}
+  .profile-header{padding:18px;gap:14px;flex-direction:column;text-align:center}
+  .profile-meta{justify-content:center}
+  .profile-avatar{width:64px;height:64px;font-size:22px}
+  .profile-name{font-size:18px}
+  .tooth{width:38px;height:46px;font-size:11px;border-radius:10px 10px 16px 16px}
+  .chart-row-label{display:none}
+  .chart-row{gap:5px}
+  .dental-chart{gap:14px}
+  .wa-actions-grid{grid-template-columns:1fr}
+  .modal.lg{max-width:100%}
+  .deleted-item{flex-direction:column;align-items:flex-start}
+  .deleted-actions{width:100%;justify-content:flex-end}
+}
+@media (max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .stat-value{font-size:18px}
+  .stat-label{font-size:11px}
+  .stat-icon{width:34px;height:34px;font-size:14px}
+  .tooth{width:32px;height:40px;font-size:10px;border-radius:9px 9px 14px 14px}
+  .section-title{font-size:15px}
+  .profile-name{font-size:16px}
+  .log-item{padding:12px;gap:10px}
+  .log-dot{width:30px;height:30px;font-size:11px}
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="ambient-blob b1" aria-hidden="true"></div>
+<div class="ambient-blob b2" aria-hidden="true"></div>
+<div class="ambient-blob b3" aria-hidden="true"></div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="update-toast" id="updateToast">
+  <i class="fas fa-circle-arrow-up"></i>
+  <div class="update-toast-text">New version available</div>
+  <button class="update-toast-btn" onclick="PWAManager.applyUpdate()">Update</button>
+</div>
+
+<div class="app">
+  <header class="header" id="appHeader">
+    <div class="header-inner">
+      <div class="brand" onclick="scrollTo({top:0,behavior:'smooth'})">
+        <div class="brand-icon"><i class="fas fa-tooth"></i></div>
+        <div class="brand-text">
+          <div class="brand-title">Zulfiqar <span>Dental</span></div>
+          <div class="brand-sub">Clinic · Patient Management</div>
+        </div>
+      </div>
+      <div class="search-wrap" id="searchWrap">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" inputmode="search" class="search-bar" id="searchInput" placeholder="Search by name, ID, or phone number..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Search patients">
+        <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" tabindex="-1"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" onclick="ThemeManager.toggle()" title="Toggle theme" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+        </button>
+        <button class="btn pwa-install-btn" id="pwaInstallBtn" onclick="PWAManager.install()" style="display:none">
+          <i class="fas fa-download"></i>
+          <span class="btn-text">Install App</span>
+        </button>
+        <button class="btn btn-primary" onclick="App.openPatientModal()">
+          <i class="fas fa-user-plus"></i>
+          <span class="btn-text">Add New Patient</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-head">
+          <div class="stat-icon teal"><i class="fas fa-users"></i></div>
+          <span class="stat-trend neutral"><i class="fas fa-user-plus"></i> Active</span>
+        </div>
+        <div class="stat-value" id="statTotalPatients">0</div>
+        <div class="stat-label">Total Patients</div>
+      </div>
+      <div class="stat-card danger reveal-on-scroll">
+        <div class="stat-head">
+          <div class="stat-icon danger"><i class="fas fa-hand-holding-dollar"></i></div>
+          <span class="stat-trend down"><i class="fas fa-arrow-up"></i> Pending</span>
+        </div>
+        <div class="stat-value" id="statPendingBalance">Rs. 0</div>
+        <div class="stat-label">Outstanding Balance</div>
+      </div>
+      <div class="stat-card success reveal-on-scroll">
+        <div class="stat-head">
+          <div class="stat-icon success"><i class="fas fa-sack-dollar"></i></div>
+          <span class="stat-trend up"><i class="fas fa-check"></i> Collected</span>
+        </div>
+        <div class="stat-value" id="statTotalCollected">Rs. 0</div>
+        <div class="stat-label">Total Collected</div>
+      </div>
+      <div class="stat-card warning reveal-on-scroll">
+        <div class="stat-head">
+          <div class="stat-icon warning"><i class="fas fa-calendar-day"></i></div>
+          <span class="stat-trend neutral"><i class="fas fa-clock"></i> Today</span>
+        </div>
+        <div class="stat-value" id="statTodayVisits">0</div>
+        <div class="stat-label">Today's Visits</div>
+      </div>
+    </div>
+
+    <div class="section-head reveal-on-scroll">
+      <div class="section-title">
+        <i class="fas fa-clipboard-list"></i>
+        Patient Records
+        <span class="count-badge" id="patientCountBadge">0</span>
+      </div>
+      <div class="section-actions">
+        <button class="deleted-badge" id="deletedBadge" onclick="App.openDeletedModal()" style="display:none">
+          <i class="fas fa-trash-can-arrow-up"></i>
+          <span>Deleted</span>
+          <span class="deleted-count-pill" id="deletedCountPill">0</span>
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="App.printReport()">
+          <i class="fas fa-file-pdf"></i> Print / Download PDF
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="App.confirmReset()">
+          <i class="fas fa-rotate-left"></i> Reset
+        </button>
+      </div>
+    </div>
+
+    <div class="patients-wrap reveal-on-scroll">
+      <div class="table-wrap">
+        <table class="patients-table">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Contact</th>
+              <th>Age / Gender</th>
+              <th>Total Bill</th>
+              <th>Paid</th>
+              <th>Balance</th>
+              <th style="text-align:right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="patientsTableBody"></tbody>
+        </table>
+      </div>
+      <div class="patients-cards" id="patientsCards"></div>
+      <div id="emptyState" style="display:none">
+        <div class="empty-state">
+          <i class="fas fa-inbox" id="emptyIcon"></i>
+          <h3 id="emptyTitle">No patients found</h3>
+          <p id="emptyDesc">Try a different search term or add a new patient to get started.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- PATIENT MODAL -->
+<div class="modal-overlay" id="patientModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="patientModalTitle">
+    <div class="modal-head">
+      <div class="modal-title">
+        <div class="modal-title-icon"><i class="fas fa-user-plus" id="patientModalIcon"></i></div>
+        <span id="patientModalTitle">Add New Patient</span>
+      </div>
+      <button class="modal-close" aria-label="Close" onclick="App.closeModal('patientModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <form id="patientForm" onsubmit="App.savePatient(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name <span class="req">*</span></label>
+            <input type="text" class="form-control" id="formName" placeholder="e.g., Ahmed Khan" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number <span class="req">*</span></label>
+            <input type="tel" class="form-control" id="formPhone" placeholder="e.g., 03001234567" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Age</label>
+            <input type="number" class="form-control" id="formAge" placeholder="e.g., 32" min="1" max="120" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <div class="select-wrap">
+              <select class="form-control" id="formGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" id="formAddress" placeholder="e.g., Jhang Road, Gojra" autocomplete="off">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Medical Notes / Allergies</label>
+            <textarea class="form-control" id="formNotes" placeholder="Any medical history, allergies, or special notes..."></textarea>
+          </div>
+        </div>
+        <input type="hidden" id="formEditId">
+      </form>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="App.closeModal('patientModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="document.getElementById('patientForm').requestSubmit()">
+        <i class="fas fa-check"></i> <span id="saveBtnText">Save Patient</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal lg" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title">
+        <div class="modal-title-icon"><i class="fas fa-user-circle"></i></div>
+        <span>Patient Profile</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-image btn-sm" onclick="App.saveDigitalSlip(App.currentViewPatientId)" id="saveSlipBtn">
+          <i class="fas fa-image"></i> Save Image
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="App.printPatientReport(App.currentViewPatientId)">
+          <i class="fas fa-file-pdf"></i> Print
+        </button>
+        <button class="modal-close" aria-label="Close" onclick="App.closeModal('viewModal')"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <div class="modal-body" id="viewModalBody"></div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal sm" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title">
+        <div class="modal-title-icon green"><i class="fas fa-hand-holding-dollar"></i></div>
+        <span>Add Payment</span>
+      </div>
+      <button class="modal-close" aria-label="Close" onclick="App.closeModal('paymentModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600;">Outstanding Balance</div>
+        <div id="paymentBalanceDisplay" style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--red-600);margin-top:6px;">Rs. 0</div>
+      </div>
+      <form id="paymentForm" onsubmit="App.savePayment(event)">
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label">Amount (Rs.) <span class="req">*</span></label>
+          <input type="number" class="form-control" id="paymentAmount" placeholder="e.g., 5000" min="1" step="1" required autocomplete="off">
+        </div>
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label">Payment Method</label>
+          <div class="select-wrap">
+            <select class="form-control" id="paymentMethod">
+              <option value="Cash">Cash</option>
+              <option value="Card">Card</option>
+              <option value="Easypaisa">Easypaisa</option>
+              <option value="JazzCash">JazzCash</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes (Optional)</label>
+          <input type="text" class="form-control" id="paymentNotes" placeholder="e.g., Partial payment" autocomplete="off">
+        </div>
+        <input type="hidden" id="paymentPatientId">
+      </form>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="App.closeModal('paymentModal')">Cancel</button>
+      <button class="btn btn-success" onclick="document.getElementById('paymentForm').requestSubmit()">
+        <i class="fas fa-check"></i> Record Payment
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TREATMENT MODAL — Label + min/max updated for FDI -->
+<div class="modal-overlay" id="treatmentModal">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title">
+        <div class="modal-title-icon"><i class="fas fa-tooth"></i></div>
+        <span>Log Treatment</span>
+      </div>
+      <button class="modal-close" aria-label="Close" onclick="App.closeModal('treatmentModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <form id="treatmentForm" onsubmit="App.saveTreatment(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Tooth Number (FDI: 11–48) <span class="req">*</span></label>
+            <input type="number" class="form-control" id="treatmentTooth" min="11" max="48" placeholder="e.g., 14, 36, 46" required autocomplete="off">
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.5;">
+              Upper: 11–18, 21–28 &nbsp;·&nbsp; Lower: 31–38, 41–48
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date <span class="req">*</span></label>
+            <input type="date" class="form-control" id="treatmentDate" required>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Procedure <span class="req">*</span></label>
+            <div class="select-wrap">
+              <select class="form-control" id="treatmentProcedure" required>
+                <option value="Consultation">Consultation</option>
+                <option value="Scaling &amp; Polishing">Scaling &amp; Polishing</option>
+                <option value="Filling">Filling</option>
+                <option value="Root Canal">Root Canal</option>
+                <option value="Extraction">Extraction</option>
+                <option value="Crown">Crown</option>
+                <option value="Bridge">Bridge</option>
+                <option value="Implant">Implant</option>
+                <option value="Orthodontic Adjustment">Orthodontic Adjustment</option>
+                <option value="Whitening">Whitening</option>
+                <option value="X-Ray">X-Ray</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fee (Rs.) <span class="req">*</span></label>
+            <input type="number" class="form-control" id="treatmentFee" min="0" step="1" placeholder="e.g., 5000" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <div class="select-wrap">
+              <select class="form-control" id="treatmentStatus">
+                <option value="Completed">Completed</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Planned">Planned</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Doctor Notes</label>
+            <textarea class="form-control" id="treatmentNotes" placeholder="Clinical notes, observations, next steps..."></textarea>
+          </div>
+        </div>
+        <input type="hidden" id="treatmentPatientId">
+      </form>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="App.closeModal('treatmentModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="document.getElementById('treatmentForm').requestSubmit()">
+        <i class="fas fa-check"></i> Save Treatment
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- WHATSAPP MODAL -->
+<div class="modal-overlay" id="whatsappModal">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title">
+        <div class="modal-title-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+        <span>Send WhatsApp Message</span>
+      </div>
+      <button class="modal-close" aria-label="Close" onclick="App.closeModal('whatsappModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="wa-actions-grid">
+        <button class="wa-action" data-wa-type="reminder" onclick="App.selectWhatsAppType('reminder')">
+          <div class="wa-action-icon"><i class="fas fa-calendar-check"></i></div>
+          <div class="wa-action-text">
+            <div class="wa-action-title">Appointment Reminder</div>
+            <div class="wa-action-sub">Send upcoming visit details</div>
+          </div>
+        </button>
+        <button class="wa-action" data-wa-type="receipt" onclick="App.selectWhatsAppType('receipt')">
+          <div class="wa-action-icon"><i class="fas fa-receipt"></i></div>
+          <div class="wa-action-text">
+            <div class="wa-action-title">Payment Receipt</div>
+            <div class="wa-action-sub">Send billing summary</div>
+          </div>
+        </button>
+        <button class="wa-action" data-wa-type="custom" onclick="App.selectWhatsAppType('custom')">
+          <div class="wa-action-icon"><i class="fas fa-pen-to-square"></i></div>
+          <div class="wa-action-text">
+            <div class="wa-action-title">Custom Message</div>
+            <div class="wa-action-sub">Write your own</div>
+          </div>
+        </button>
+        <button class="wa-action" data-wa-type="thanks" onclick="App.selectWhatsAppType('thanks')">
+          <div class="wa-action-icon"><i class="fas fa-heart"></i></div>
+          <div class="wa-action-text">
+            <div class="wa-action-title">Thank You Note</div>
+            <div class="wa-action-sub">Post-visit follow up</div>
+          </div>
+        </button>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label class="form-label">Recipient</label>
+        <input type="text" class="form-control" id="waRecipient" readonly>
+      </div>
+      <div class="wa-preview">
+        <div class="wa-preview-label"><i class="fab fa-whatsapp"></i> Message Preview</div>
+        <div class="wa-bubble" id="waPreview">Select an option above to preview</div>
+      </div>
+      <div class="form-group" id="waCustomGroup" style="display:none;">
+        <label class="form-label">Custom Message</label>
+        <textarea class="form-control" id="waCustomText" placeholder="Type your custom message here..."></textarea>
+      </div>
+      <input type="hidden" id="waPatientId">
+      <input type="hidden" id="waType">
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="App.closeModal('whatsappModal')">Cancel</button>
+      <button class="btn btn-whatsapp" onclick="App.sendWhatsApp()">
+        <i class="fab fa-whatsapp"></i> Open WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal sm" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title">
+        <div class="modal-title-icon red"><i class="fas fa-triangle-exclamation"></i></div>
+        <span id="confirmTitle">Confirm Action</span>
+      </div>
+      <button class="modal-close" aria-label="Close" onclick="App.closeModal('confirmModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p id="confirmMessage" style="font-size:14px;line-height:1.6;color:var(--text-secondary);">Are you sure you want to proceed?</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="App.closeModal('confirmModal')">Cancel</button>
+      <button class="btn btn-danger" id="confirmActionBtn">
+        <i class="fas fa-check"></i> <span id="confirmActionText">Confirm</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETED MODAL -->
+<div class="modal-overlay" id="deletedModal">
+  <div class="modal lg" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title">
+        <div class="modal-title-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 20px rgba(245,158,11,.35)"><i class="fas fa-trash-can-arrow-up"></i></div>
+        <span>Deleted Patients</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-danger btn-sm" onclick="App.confirmEmptyTrash()" id="emptyTrashBtn">
+          <i class="fas fa-fire"></i> Empty Trash
+        </button>
+        <button class="modal-close" aria-label="Close" onclick="App.closeModal('deletedModal')"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="chart-note" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3)">
+        <i class="fas fa-info-circle" style="color:#d97706"></i>
+        <div>Deleted patients are kept for <strong>30 days</strong> and can be restored anytime during that window. After 30 days they're automatically removed.</div>
+      </div>
+      <div id="deletedListContainer"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="App.closeModal('deletedModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="printReport"></div>
+<div id="receiptCanvas" aria-hidden="true"></div>
+
+<script>
+'use strict';
+
+const CONFIG = {
+  STORAGE_KEY: 'zulifqar_dental_pms_v1',
+  TRASH_KEY: 'zulifqar_dental_pms_trash_v1',
+  THEME_KEY: 'zdc_theme',
+  CLINIC_NAME: 'Zulfiqar Dental Clinic',
+  CLINIC_PHONE: '0318-2617109',
+  CLINIC_ADDRESS: 'Tehsil Office Road, Opposite to Shaista Clinic Gojra',
+  MAX_PATIENTS: 5000,
+  SAVE_DEBOUNCE: 100,
+  TRASH_RETENTION_DAYS: 30,
+  UNDO_WINDOW_MS: 6000
+};
+Object.freeze(CONFIG);
+
+const ZDC_LOGO_WHITE = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" style="display:block;">' +
+  '<circle cx="60" cy="60" r="52" fill="none" stroke="#ffffff" stroke-width="4"/>' +
+  '<path d="M 38 38 Q 38 30 46 28 Q 54 26 60 33 Q 66 26 74 28 Q 82 30 82 38 Q 82 48 78 60 Q 76 68 72 74 Q 68 79 64 74 Q 62 71 60 71 Q 58 71 56 74 Q 52 79 48 74 Q 44 68 42 60 Q 38 48 38 38 Z" fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>' +
+  '<text x="60" y="55" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="900" fill="#ffffff" letter-spacing="0.5">ZDC</text>' +
+  '</svg>';
+
+// ═══════════════════════════════════════════════════════════════
+// FDI tooth validator — accepts 11–18, 21–28, 31–38, 41–48
+// ═══════════════════════════════════════════════════════════════
+const isValidFDI = (n) => {
+  const num = parseInt(n, 10);
+  if (isNaN(num)) return false;
+  const s = String(num);
+  if (s.length !== 2) return false;
+  const tens = parseInt(s[0], 10);
+  const units = parseInt(s[1], 10);
+  if (units < 1 || units > 8) return false;
+  return tens === 1 || tens === 2 || tens === 3 || tens === 4;
+};
+
+const Utils = {
+  escape(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
+  formatMoney(n) {
+    const num = Number(n);
+    if (!isFinite(num)) return 'Rs. 0';
+    const rounded = Math.round(num);
+    try {
+      return 'Rs. ' + rounded.toLocaleString('en-PK');
+    } catch (e) {
+      const s = String(Math.abs(rounded));
+      let out = '';
+      for (let i = 0; i < s.length; i++) {
+        if (i > 0 && (s.length - i) % 3 === 0) out += ',';
+        out += s[i];
+      }
+      return 'Rs. ' + (rounded < 0 ? '-' : '') + out;
+    }
+  },
+  formatDate(iso) {
+    if (!iso || typeof iso !== 'string') return '—';
+    const d = new Date(iso.length === 10 ? iso + 'T00:00:00' : iso);
+    if (isNaN(d.getTime())) return '—';
+    return d.toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric' });
+  },
+  daysBetween(a, b) { return Math.floor((b - a) / (1000 * 60 * 60 * 24)); },
+  todayISO() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  },
+  avatarColor(name) {
+    const colors = [
+      'linear-gradient(135deg,#a78bfa,#7c3aed)','linear-gradient(135deg,#c084fc,#8b5cf6)',
+      'linear-gradient(135deg,#818cf8,#6366f1)','linear-gradient(135deg,#b09bff,#7c3aed)',
+      'linear-gradient(135deg,#a855f7,#6d28d9)','linear-gradient(135deg,#8b5cf6,#5b21b6)',
+      'linear-gradient(135deg,#7c3aed,#4c1d95)','linear-gradient(135deg,#6366f1,#4338ca)'
+    ];
+    let hash = 0;
+    const str = String(name || '');
+    for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    return colors[Math.abs(hash) % colors.length];
+  },
+  avatarSolid(name) {
+    const colors = ['#7c3aed','#8b5cf6','#6366f1','#a855f7','#6d28d9','#5b21b6','#4c1d95','#4338ca'];
+    let hash = 0;
+    const str = String(name || '');
+    for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    return colors[Math.abs(hash) % colors.length];
+  },
+  initials(name) {
+    if (!name) return '?';
+    return String(name).trim().split(/\s+/).slice(0, 2).map(w => w[0] || '').join('').toUpperCase() || '?';
+  },
+  toWhatsAppNumber(phone) {
+    let c = String(phone || '').replace(/[^\d]/g, '');
+    if (c.startsWith('0')) c = '92' + c.slice(1);
+    if (!c.startsWith('92') && c.length === 10) c = '92' + c;
+    return c;
+  },
+  generateId(prefix) { return (prefix || 'ID') + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); },
+  sanitizeText(str, maxLen) {
+    if (str === null || str === undefined) return '';
+    let s = String(str).trim();
+    if (maxLen) s = s.slice(0, maxLen);
+    return s;
+  },
+  validatePhone(phone) {
+    const c = String(phone || '').replace(/[^\d]/g, '');
+    return c.length >= 7 && c.length <= 15;
+  },
+  onlyDigits(str) { return String(str || '').replace(/\D/g, ''); }
+};
+
+const RippleEffect = {
+  init() {
+    document.addEventListener('pointerdown', (e) => {
+      const target = e.target.closest('button, .btn, .action-btn, .tab, .wa-action, .toast-undo-btn, .deleted-restore-btn');
+      if (!target || target.disabled) return;
+      const style = getComputedStyle(target);
+      if (style.position === 'static') target.style.position = 'relative';
+      const rect = target.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple-circle';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      ripple.style.width = size + 'px';
+      ripple.style.height = size + 'px';
+      const originalOverflow = target.style.overflow;
+      target.style.overflow = 'hidden';
+      target.appendChild(ripple);
+      setTimeout(() => {
+        if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+        target.style.overflow = originalOverflow;
+      }, 720);
+    }, { passive: true });
+  }
+};
+
+const Toast = {
+  show(message, type, title, duration, options) {
+    type = type || 'info';
+    duration = duration || 3500;
+    options = options || {};
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    while (container.children.length >= 3) {
+      const first = container.firstChild;
+      if (first && first.querySelector && first.querySelector('.toast-undo-btn')) {
+        const next = first.nextSibling;
+        if (next) container.removeChild(next);
+        else break;
+      } else {
+        container.removeChild(first);
+      }
+    }
+
+    const titles = { success: 'Success', error: 'Error', warning: 'Wait a moment', info: 'Info', whatsapp: 'WhatsApp', undo: 'Deleted' };
+    const icons = { success: 'fa-check', error: 'fa-exclamation', warning: 'fa-triangle-exclamation', info: 'fa-info', whatsapp: 'fa-brands fa-whatsapp', undo: 'fa-trash-can-arrow-up' };
+    const finalTitle = title || titles[type] || 'Notice';
+    const finalIcon = icons[type] || 'fa-info';
+
+    const toast = document.createElement('div');
+    toast.className = 'toast ' + type;
+    toast.addEventListener('click', (e) => e.stopPropagation());
+
+    let undoBtnHTML = '';
+    if (options.undoLabel && typeof options.onUndo === 'function') {
+      undoBtnHTML = '<button class="toast-undo-btn" type="button"><i class="fas fa-rotate-left"></i> ' + Utils.escape(options.undoLabel) + '</button>';
+    }
+
+    toast.innerHTML =
+      '<div class="toast-icon"><i class="' + (finalIcon.indexOf('fa-brands') === 0 ? finalIcon : 'fas ' + finalIcon) + '"></i></div>' +
+      '<div class="toast-body">' +
+        '<div class="toast-title">' + Utils.escape(finalTitle) + '</div>' +
+        '<div class="toast-msg">' + Utils.escape(message) + '</div>' +
+        undoBtnHTML +
+      '</div>' +
+      '<div class="toast-progress" style="animation-duration:' + duration + 'ms"></div>';
+    container.appendChild(toast);
+
+    if (options.undoLabel && typeof options.onUndo === 'function') {
+      const btn = toast.querySelector('.toast-undo-btn');
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          try { options.onUndo(); } catch (err) { console.error(err); }
+          toast.classList.add('removing');
+          setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 280);
+        });
+      }
+    }
+
+    setTimeout(() => {
+      if (!toast.parentNode) return;
+      toast.classList.add('removing');
+      setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 280);
+    }, duration);
+  }
+};
+
+const ThemeManager = {
+  current: 'dark',
+  init() {
+    let saved = null;
+    try { saved = localStorage.getItem(CONFIG.THEME_KEY); } catch (e) {}
+    let preferred = 'dark';
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) preferred = 'light';
+    this.current = (saved === 'light' || saved === 'dark') ? saved : preferred;
+    this.apply(this.current);
+  },
+  apply(theme) {
+    this.current = theme;
+    document.body.setAttribute('data-theme', theme);
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#3B1C63' : '#f7f5fc');
+  },
+  toggle() {
+    const btn = document.getElementById('themeToggle');
+    if (btn) { btn.classList.add('switching'); setTimeout(() => btn.classList.remove('switching'), 600); }
+    const next = this.current === 'dark' ? 'light' : 'dark';
+    this.apply(next);
+    try { localStorage.setItem(CONFIG.THEME_KEY, next); } catch (e) {}
+    Toast.show(next === 'dark' ? 'Dark theme activated 🌙' : 'Light theme activated ☀️', 'success', 'Theme Changed', 2000);
+  }
+};
+
+const DataLayer = {
+  patients: [],
+  trash: [],
+  _saveTimer: null,
+  _trashSaveTimer: null,
+
+  init() {
+    let stored = null;
+    try { stored = localStorage.getItem(CONFIG.STORAGE_KEY); } catch (e) {}
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) this.patients = parsed.map(p => this.normalizePatient(p)).filter(Boolean);
+        else { this.patients = []; this.save(true); }
+      } catch (e) { this.patients = []; this.save(true); }
+    } else { this.patients = []; this.save(true); }
+
+    let trashStored = null;
+    try { trashStored = localStorage.getItem(CONFIG.TRASH_KEY); } catch (e) {}
+    if (trashStored) {
+      try {
+        const parsed = JSON.parse(trashStored);
+        if (Array.isArray(parsed)) this.trash = parsed.map(p => this.normalizeTrashItem(p)).filter(Boolean);
+        else { this.trash = []; }
+      } catch (e) { this.trash = []; }
+    } else { this.trash = []; }
+
+    this.purgeOldTrash();
+  },
+
+  normalizePatient(p) {
+    if (!p || typeof p !== 'object' || !p.id || !p.name) return null;
+    return {
+      id: String(p.id),
+      name: String(p.name),
+      phone: String(p.phone || ''),
+      age: p.age ? parseInt(p.age, 10) || null : null,
+      gender: ['Male', 'Female', 'Other'].indexOf(p.gender) >= 0 ? p.gender : 'Male',
+      address: String(p.address || ''),
+      notes: String(p.notes || ''),
+      createdAt: String(p.createdAt || Utils.todayISO()),
+      treatments: Array.isArray(p.treatments) ? p.treatments.filter(t => t && t.id) : [],
+      payments: Array.isArray(p.payments) ? p.payments.filter(t => t && t.id) : [],
+      appointments: Array.isArray(p.appointments) ? p.appointments : []
+    };
+  },
+
+  normalizeTrashItem(item) {
+    if (!item || typeof item !== 'object') return null;
+    const p = this.normalizePatient(item.patient);
+    if (!p) return null;
+    return {
+      patient: p,
+      deletedAt: String(item.deletedAt || new Date().toISOString()),
+      deleteType: String(item.deleteType || 'manual')
+    };
+  },
+
+  save(immediate) {
+    if (this._saveTimer) clearTimeout(this._saveTimer);
+    const doSave = () => {
+      try { localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(this.patients)); }
+      catch (e) {
+        console.error('[DataLayer] Save failed:', e);
+        if (e.name === 'QuotaExceededError') Toast.show('Storage full.', 'error', 'Storage Full', 6000);
+      }
+    };
+    if (immediate) doSave();
+    else this._saveTimer = setTimeout(doSave, CONFIG.SAVE_DEBOUNCE);
+  },
+
+  saveTrash(immediate) {
+    if (this._trashSaveTimer) clearTimeout(this._trashSaveTimer);
+    const doSave = () => {
+      try { localStorage.setItem(CONFIG.TRASH_KEY, JSON.stringify(this.trash)); }
+      catch (e) { console.error('[DataLayer] Trash save failed:', e); }
+    };
+    if (immediate) doSave();
+    else this._trashSaveTimer = setTimeout(doSave, CONFIG.SAVE_DEBOUNCE);
+  },
+
+  reset() { this.patients = []; this.save(true); },
+  emptyTrash() { this.trash = []; this.saveTrash(true); },
+
+  purgeOldTrash() {
+    const cutoff = Date.now() - (CONFIG.TRASH_RETENTION_DAYS * 24 * 60 * 60 * 1000);
+    const before = this.trash.length;
+    this.trash = this.trash.filter(item => {
+      const t = new Date(item.deletedAt).getTime();
+      return !isNaN(t) && t >= cutoff;
+    });
+    if (this.trash.length !== before) this.saveTrash(true);
+  },
+
+  getById(id) {
+    for (let i = 0; i < this.patients.length; i++) {
+      if (this.patients[i].id === id) return this.patients[i];
+    }
+    return null;
+  },
+
+  nextId() {
+    let max = 1000;
+    const scan = (arr, getId) => {
+      for (let i = 0; i < arr.length; i++) {
+        const n = parseInt(String(getId(arr[i])).replace('P-', ''), 10);
+        if (!isNaN(n) && n > max) max = n;
+      }
+    };
+    scan(this.patients, p => p.id);
+    scan(this.trash, t => t.patient.id);
+    return 'P-' + (max + 1);
+  },
+
+  getPatientTotals(p) {
+    let totalBill = 0, totalPaid = 0;
+    for (let i = 0; i < p.treatments.length; i++) totalBill += (Number(p.treatments[i].fee) || 0);
+    for (let i = 0; i < p.payments.length; i++) totalPaid += (Number(p.payments[i].amount) || 0);
+    return { totalBill, totalPaid, balance: Math.max(0, totalBill - totalPaid) };
+  },
+
+  addPatient(data) {
+    if (this.patients.length >= CONFIG.MAX_PATIENTS) throw new Error('Maximum patients limit reached');
+    const p = this.normalizePatient({
+      id: this.nextId(), name: data.name, phone: data.phone, age: data.age,
+      gender: data.gender, address: data.address, notes: data.notes,
+      createdAt: Utils.todayISO(), treatments: [], payments: [], appointments: []
+    });
+    this.patients.unshift(p);
+    this.save();
+    return p;
+  },
+
+  removePatient(id) {
+    const idx = this.patients.findIndex(p => p.id === id);
+    if (idx < 0) return null;
+    const removed = this.patients.splice(idx, 1)[0];
+    const trashItem = { patient: removed, deletedAt: new Date().toISOString(), deleteType: 'manual' };
+    this.trash.unshift(trashItem);
+    this.save(true);
+    this.saveTrash(true);
+    return trashItem;
+  },
+
+  restorePatient(trashIndex) {
+    if (trashIndex < 0 || trashIndex >= this.trash.length) return null;
+    const item = this.trash.splice(trashIndex, 1)[0];
+    const existing = this.getById(item.patient.id);
+    if (existing) item.patient.id = this.nextId();
+    this.patients.unshift(item.patient);
+    this.save(true);
+    this.saveTrash(true);
+    return item.patient;
+  }
+};
+
+const PWAManager = {
+  deferredPrompt: null,
+  registration: null,
+  isStandalone: false,
+  init() {
+    this.isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      if (!this.isStandalone) {
+        const btn = document.getElementById('pwaInstallBtn');
+        if (btn) btn.style.display = 'inline-flex';
+      }
+    });
+    window.addEventListener('appinstalled', () => {
+      Toast.show('App installed successfully! 🎉', 'success', 'Installed', 4000);
+      const btn = document.getElementById('pwaInstallBtn');
+      if (btn) btn.style.display = 'none';
+      this.deferredPrompt = null;
+    });
+    if (this.isStandalone) {
+      const btn = document.getElementById('pwaInstallBtn');
+      if (btn) btn.style.display = 'none';
+    }
+    // Service worker registration is now handled by the external ./sw.js file
+  },
+  async install() {
+    if (!this.deferredPrompt) {
+      if (/iPhone|iPad|iPod/.test(navigator.userAgent)) Toast.show('Tap Share → Add to Home Screen', 'info', 'Install on iOS', 5000);
+      else Toast.show('Use browser menu → Install App', 'info', 'Install', 4500);
+      return;
+    }
+    try {
+      this.deferredPrompt.prompt();
+      const result = await this.deferredPrompt.userChoice;
+      if (result.outcome === 'accepted') Toast.show('Installing app...', 'success', 'Installing', 2500);
+    } catch (err) { console.error('[PWA] Install error:', err); }
+    this.deferredPrompt = null;
+    const btn = document.getElementById('pwaInstallBtn');
+    if (btn) btn.style.display = 'none';
+  },
+  applyUpdate() {
+    const t = document.getElementById('updateToast');
+    if (t) t.classList.remove('show');
+    if (this.registration && this.registration.waiting) this.registration.waiting.postMessage('SKIP_WAITING');
+    setTimeout(() => window.location.reload(), 200);
+  }
+};
+
+(function injectManifest() {
+  // Manifest is now linked via <link rel="manifest" href="./manifest.json"> in <head>
+})();
+
+const ScrollReveal = {
+  observer: null,
+  init() {
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach(el => el.classList.add('revealed'));
+      return;
+    }
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          this.observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+    elements.forEach(el => this.observer.observe(el));
+  },
+  refresh() {
+    if (!this.observer) return;
+    document.querySelectorAll('.reveal-on-scroll:not(.revealed)').forEach(el => this.observer.observe(el));
+  }
+};
+
+const App = {
+  searchQuery: '',
+  currentViewPatientId: null,
+  pendingConfirmAction: null,
+  _renderRAF: null,
+
+  init() {
+    try { DataLayer.init(); }
+    catch (e) {
+      console.error('[App] Data init failed:', e);
+      Toast.show('Failed to load data. Starting fresh.', 'error');
+      DataLayer.patients = [];
+    }
+    RippleEffect.init();
+    this.bindEvents();
+    this.render();
+    ScrollReveal.init();
+    this.handleDeepLink();
+    this.updateTrashBadge();
+  },
+
+  handleDeepLink() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('action') === 'add-patient') {
+        setTimeout(() => this.openPatientModal(), 500);
+        window.history.replaceState({}, '', './');
+      }
+    } catch (e) {}
+  },
+
+  bindEvents() {
+    const input = document.getElementById('searchInput');
+    const wrap = document.getElementById('searchWrap');
+    const clear = document.getElementById('searchClear');
+
+    if (input) {
+      const runSearch = () => {
+        const val = input.value || '';
+        if (wrap) wrap.classList.toggle('has-value', val.length > 0);
+        this.searchQuery = val.toLowerCase().trim();
+        this.scheduleRender();
+      };
+      input.addEventListener('input', runSearch);
+      input.addEventListener('keyup', runSearch);
+      input.addEventListener('change', runSearch);
+      input.addEventListener('search', runSearch);
+      input.addEventListener('keydown', (e) => {
+        const k = e.key;
+        if (k === 'Enter' || k === 'Go' || k === 'Search' || e.keyCode === 13) {
+          e.preventDefault();
+          runSearch();
+          input.blur();
+        }
+      });
+    }
+
+    if (clear) {
+      clear.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (input) {
+          input.value = '';
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.blur();
+        }
+      });
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.classList.remove('active');
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const actives = document.querySelectorAll('.modal-overlay.active');
+        if (actives.length > 0) actives[actives.length - 1].classList.remove('active');
+        if (!document.querySelector('.modal-overlay.active')) {
+          document.body.style.overflow = '';
+          document.body.style.touchAction = '';
+        }
+      }
+    });
+
+    const header = document.getElementById('appHeader');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > 10 && lastY <= 10) header.classList.add('scrolled');
+      else if (y <= 10 && lastY > 10) header.classList.remove('scrolled');
+      lastY = y;
+    }, { passive: true });
+  },
+
+  scheduleRender() {
+    if (this._renderRAF) return;
+    this._renderRAF = requestAnimationFrame(() => {
+      this._renderRAF = null;
+      this.renderStats();
+      this.renderPatients();
+    });
+  },
+
+  render() {
+    this.renderStats();
+    this.renderPatients();
+    this.updateTrashBadge();
+    ScrollReveal.refresh();
+  },
+
+  updateTrashBadge() {
+    const badge = document.getElementById('deletedBadge');
+    const pill = document.getElementById('deletedCountPill');
+    if (!badge || !pill) return;
+    const count = DataLayer.trash.length;
+    badge.style.display = count > 0 ? 'inline-flex' : 'none';
+    pill.textContent = count;
+  },
+
+  getFilteredPatients() {
+    const q = this.searchQuery;
+    if (!q) return DataLayer.patients;
+    const qDigits = Utils.onlyDigits(q);
+    const out = [];
+    for (let i = 0; i < DataLayer.patients.length; i++) {
+      const p = DataLayer.patients[i];
+      if (p.name && p.name.toLowerCase().indexOf(q) >= 0) { out.push(p); continue; }
+      if (p.id && p.id.toLowerCase().indexOf(q) >= 0) { out.push(p); continue; }
+      if (qDigits) {
+        const phoneDigits = Utils.onlyDigits(p.phone);
+        if (phoneDigits && phoneDigits.indexOf(qDigits) >= 0) { out.push(p); continue; }
+      }
+    }
+    return out;
+  },
+
+  renderStats() {
+    const all = DataLayer.patients;
+    let tb = 0, tp = 0, todayVisits = 0;
+    const today = Utils.todayISO();
+    for (let i = 0; i < all.length; i++) {
+      const p = all[i];
+      for (let j = 0; j < p.treatments.length; j++) {
+        tb += Number(p.treatments[j].fee) || 0;
+        if (p.treatments[j].date === today) todayVisits++;
+      }
+      for (let j = 0; j < p.payments.length; j++) tp += Number(p.payments[j].amount) || 0;
+    }
+    const pending = Math.max(0, tb - tp);
+    const el1 = document.getElementById('statTotalPatients');
+    const el2 = document.getElementById('statPendingBalance');
+    const el3 = document.getElementById('statTotalCollected');
+    const el4 = document.getElementById('statTodayVisits');
+    const el5 = document.getElementById('patientCountBadge');
+    if (el1) el1.textContent = all.length;
+    if (el2) el2.textContent = Utils.formatMoney(pending);
+    if (el3) el3.textContent = Utils.formatMoney(tp);
+    if (el4) el4.textContent = todayVisits;
+    if (el5) el5.textContent = all.length;
+  },
+
+  renderPatients() {
+    const patients = this.getFilteredPatients();
+    const tbody = document.getElementById('patientsTableBody');
+    const cards = document.getElementById('patientsCards');
+    const empty = document.getElementById('emptyState');
+    const emptyIcon = document.getElementById('emptyIcon');
+    const emptyTitle = document.getElementById('emptyTitle');
+    const emptyDesc = document.getElementById('emptyDesc');
+
+    if (!tbody || !cards || !empty) return;
+
+    if (patients.length === 0) {
+      tbody.innerHTML = '';
+      cards.innerHTML = '';
+      const searching = !!this.searchQuery;
+      if (emptyIcon) emptyIcon.className = searching ? 'fas fa-search' : 'fas fa-inbox';
+      if (emptyTitle) emptyTitle.textContent = searching ? 'No matching patients' : 'No patients yet';
+      if (emptyDesc) emptyDesc.textContent = searching ? 'Try a different name, phone, or patient ID.' : 'Add your first patient to get started.';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    let tbodyHTML = '';
+    let cardsHTML = '';
+    for (let i = 0; i < patients.length; i++) {
+      const p = patients[i];
+      const t = DataLayer.getPatientTotals(p);
+      const balanceClass = t.balance > 0 ? 'badge-danger' : 'badge-success';
+      const balanceText = t.balance > 0 ? Utils.formatMoney(t.balance) : 'Paid';
+      const initials = Utils.initials(p.name);
+      const avatarBg = Utils.avatarColor(p.name);
+      const delay = i < 12 ? (i * 0.04).toFixed(2) : '0';
+
+      tbodyHTML += '<tr data-patient-id="' + p.id + '" style="animation-delay:' + delay + 's" onclick="App.viewPatient(\'' + p.id + '\')">' +
+        '<td><div class="patient-cell">' +
+          '<div class="patient-avatar" style="background:' + avatarBg + '">' + initials + '</div>' +
+          '<div class="patient-info"><div class="patient-name">' + Utils.escape(p.name) + '</div><div class="patient-id">' + p.id + '</div></div>' +
+        '</div></td>' +
+        '<td><div style="display:flex;flex-direction:column;gap:2px">' +
+          '<span style="font-weight:500;color:var(--text-primary)">' + Utils.escape(p.phone) + '</span>' +
+          '<span style="font-size:11px;color:var(--text-muted)">' + Utils.escape(p.address || '—') + '</span>' +
+        '</div></td>' +
+        '<td style="color:var(--text-secondary)">' + (p.age ? p.age + ' yrs' : '—') + ' <span style="color:var(--text-muted);font-size:11px">· ' + (p.gender || '—') + '</span></td>' +
+        '<td><span class="money">' + Utils.formatMoney(t.totalBill) + '</span></td>' +
+        '<td><span class="money money-success">' + Utils.formatMoney(t.totalPaid) + '</span></td>' +
+        '<td><span class="badge ' + balanceClass + '">' + balanceText + '</span></td>' +
+        '<td onclick="event.stopPropagation()">' +
+          '<div class="actions-cell">' +
+            '<button class="action-btn view" title="View" onclick="App.viewPatient(\'' + p.id + '\')"><i class="fas fa-eye"></i></button>' +
+            '<button class="action-btn pay" title="Add Payment" onclick="App.openPaymentModal(\'' + p.id + '\')"><i class="fas fa-hand-holding-dollar"></i></button>' +
+            '<button class="action-btn wa" title="WhatsApp" onclick="App.openWhatsAppModal(\'' + p.id + '\')"><i class="fab fa-whatsapp"></i></button>' +
+            '<button class="action-btn image" title="Save Image" onclick="App.saveDigitalSlip(\'' + p.id + '\')"><i class="fas fa-image"></i></button>' +
+            '<button class="action-btn edit" title="Edit" onclick="App.openPatientModal(\'' + p.id + '\')"><i class="fas fa-pen"></i></button>' +
+            '<button class="action-btn del" title="Delete" onclick="App.deletePatient(\'' + p.id + '\')"><i class="fas fa-trash"></i></button>' +
+          '</div>' +
+        '</td>' +
+      '</tr>';
+
+      const cardBalanceClass = t.balance > 0 ? 'danger' : 'success';
+      const cardBalanceText = t.balance > 0 ? Utils.formatMoney(t.balance) : 'Fully Paid';
+      const cardDelay = i < 12 ? (i * 0.05).toFixed(2) : '0';
+
+      cardsHTML += '<div class="patient-card" data-patient-id="' + p.id + '" style="animation-delay:' + cardDelay + 's">' +
+        '<div class="pc-head">' +
+          '<div class="patient-cell">' +
+            '<div class="patient-avatar" style="background:' + avatarBg + '">' + initials + '</div>' +
+            '<div class="patient-info"><div class="patient-name">' + Utils.escape(p.name) + '</div><div class="patient-id">' + p.id + '</div></div>' +
+          '</div>' +
+          '<div class="pc-actions">' +
+            '<button class="action-btn image" title="Save Image" onclick="App.saveDigitalSlip(\'' + p.id + '\')"><i class="fas fa-image"></i></button>' +
+            '<button class="action-btn edit" onclick="App.openPatientModal(\'' + p.id + '\')"><i class="fas fa-pen"></i></button>' +
+            '<button class="action-btn del" onclick="App.deletePatient(\'' + p.id + '\')"><i class="fas fa-trash"></i></button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pc-info-grid">' +
+          '<div class="pc-info-item"><div class="pc-info-label">Phone</div><div class="pc-info-value">' + Utils.escape(p.phone) + '</div></div>' +
+          '<div class="pc-info-item"><div class="pc-info-label">Age / Gender</div><div class="pc-info-value">' + (p.age ? p.age + ' yrs' : '—') + ' · ' + (p.gender || '—') + '</div></div>' +
+          '<div class="pc-info-item"><div class="pc-info-label">Total Bill</div><div class="pc-info-value">' + Utils.formatMoney(t.totalBill) + '</div></div>' +
+          '<div class="pc-info-item"><div class="pc-info-label">Paid</div><div class="pc-info-value" style="color:var(--green-600)">' + Utils.formatMoney(t.totalPaid) + '</div></div>' +
+        '</div>' +
+        '<div class="pc-balance ' + cardBalanceClass + '">' +
+          '<span style="font-weight:600;color:var(--text-secondary)">Balance</span>' +
+          '<span style="font-weight:700;color:' + (t.balance > 0 ? 'var(--red-600)' : 'var(--green-600)') + '">' + cardBalanceText + '</span>' +
+        '</div>' +
+        '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">' +
+          '<button class="btn btn-primary btn-sm" style="flex:1;min-width:70px" onclick="App.viewPatient(\'' + p.id + '\')"><i class="fas fa-eye"></i> View</button>' +
+          '<button class="btn btn-success btn-sm" style="flex:1;min-width:70px" onclick="App.openPaymentModal(\'' + p.id + '\')"><i class="fas fa-hand-holding-dollar"></i> Pay</button>' +
+          '<button class="btn btn-whatsapp btn-sm" style="flex:1;min-width:70px" onclick="App.openWhatsAppModal(\'' + p.id + '\')"><i class="fab fa-whatsapp"></i> Chat</button>' +
+          '<button class="btn btn-image btn-sm" style="flex:1;min-width:70px" onclick="App.saveDigitalSlip(\'' + p.id + '\')"><i class="fas fa-image"></i> Image</button>' +
+        '</div>' +
+      '</div>';
+    }
+    tbody.innerHTML = tbodyHTML;
+    cards.innerHTML = cardsHTML;
+  },
+
+  openDeletedModal() {
+    this.renderDeletedList();
+    this.openModal('deletedModal');
+  },
+
+  renderDeletedList() {
+    const container = document.getElementById('deletedListContainer');
+    const emptyTrashBtn = document.getElementById('emptyTrashBtn');
+    if (!container) return;
+    if (DataLayer.trash.length === 0) {
+      if (emptyTrashBtn) emptyTrashBtn.style.display = 'none';
+      container.innerHTML = '<div class="empty-state"><i class="fas fa-trash-can"></i><h3>Trash is empty</h3><p>Deleted patient records will appear here for 30 days before being permanently removed.</p></div>';
+      return;
+    }
+    if (emptyTrashBtn) emptyTrashBtn.style.display = 'inline-flex';
+    const now = Date.now();
+    let html = '<div class="deleted-list">';
+    for (let i = 0; i < DataLayer.trash.length; i++) {
+      const item = DataLayer.trash[i];
+      const p = item.patient;
+      const initials = Utils.initials(p.name);
+      const avatarBg = Utils.avatarColor(p.name);
+      const deletedDate = new Date(item.deletedAt);
+      const daysAgo = Utils.daysBetween(deletedDate.getTime(), now);
+      const daysLeft = Math.max(0, CONFIG.TRASH_RETENTION_DAYS - daysAgo);
+      const delay = i < 12 ? (i * 0.06).toFixed(2) : '0';
+
+      html += '<div class="deleted-item" style="animation-delay:' + delay + 's">' +
+        '<div class="deleted-avatar" style="background:' + avatarBg + '">' + initials + '</div>' +
+        '<div class="deleted-info">' +
+          '<div class="deleted-name">' + Utils.escape(p.name) + '</div>' +
+          '<div class="deleted-meta">' +
+            '<span><i class="fas fa-id-card"></i> ' + p.id + '</span>' +
+            '<span><i class="fas fa-phone"></i> ' + Utils.escape(p.phone) + '</span>' +
+            '<span><i class="fas fa-clock"></i> Deleted ' + (daysAgo === 0 ? 'today' : daysAgo + 'd ago') + '</span>' +
+            '<span style="color:#d97706"><i class="fas fa-hourglass-half"></i> ' + daysLeft + 'd left</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="deleted-actions">' +
+          '<button class="deleted-restore-btn" onclick="App.restorePatient(' + i + ')" title="Restore patient">' +
+            '<i class="fas fa-rotate-left"></i> Restore' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    }
+    html += '</div>';
+    container.innerHTML = html;
+  },
+
+  restorePatient(trashIndex) {
+    const item = DataLayer.trash[trashIndex];
+    if (!item) return;
+    const name = item.patient.name;
+    const restored = DataLayer.restorePatient(trashIndex);
+    if (!restored) { Toast.show('Could not restore patient', 'error'); return; }
+    this.updateTrashBadge();
+    this.render();
+    this.renderDeletedList();
+    if (DataLayer.trash.length === 0) setTimeout(() => this.closeModal('deletedModal'), 400);
+    Toast.show(name + '\'s record restored successfully', 'success', 'Restored', 3500);
+  },
+
+  confirmEmptyTrash() {
+    if (DataLayer.trash.length === 0) return;
+    this.confirm('Empty Trash', 'Permanently delete all ' + DataLayer.trash.length + ' patient record(s) in trash? This cannot be undone.', 'Empty Trash', () => {
+      const count = DataLayer.trash.length;
+      DataLayer.emptyTrash();
+      this.updateTrashBadge();
+      this.renderDeletedList();
+      Toast.show(count + ' patient record(s) permanently deleted', 'success', 'Trash Emptied');
+      setTimeout(() => this.closeModal('deletedModal'), 400);
+    });
+  },
+
+  deletePatient(id) {
+    const p = DataLayer.getById(id);
+    if (!p) return;
+    this.confirm(
+      'Delete Patient',
+      'Move ' + p.name + '\'s record to trash? You can restore it within 30 days.',
+      'Delete',
+      () => {
+        const row = document.querySelector('tr[data-patient-id="' + id + '"]');
+        const card = document.querySelector('.patient-card[data-patient-id="' + id + '"]');
+        if (row) row.classList.add('patient-row-deleting');
+        if (card) card.classList.add('patient-row-deleting');
+        setTimeout(() => {
+          const trashItem = DataLayer.removePatient(id);
+          if (!trashItem) { Toast.show('Failed to delete patient', 'error'); return; }
+          this.updateTrashBadge();
+          this.render();
+          Toast.show(
+            p.name + '\'s record moved to trash',
+            'undo',
+            'Patient Deleted',
+            CONFIG.UNDO_WINDOW_MS,
+            {
+              undoLabel: 'Undo Delete',
+              onUndo: () => {
+                const idx = DataLayer.trash.findIndex(t => t.patient.id === p.id);
+                if (idx >= 0) {
+                  DataLayer.restorePatient(idx);
+                  this.updateTrashBadge();
+                  this.render();
+                  Toast.show(p.name + '\'s record restored', 'success', 'Restored', 3000);
+                }
+              }
+            }
+          );
+        }, 350);
+      }
+    );
+  },
+
+  openModal(id) {
+    const m = document.getElementById(id);
+    if (m) {
+      m.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    }
+  },
+  closeModal(id) {
+    const m = document.getElementById(id);
+    if (m) m.classList.remove('active');
+    if (!document.querySelector('.modal-overlay.active')) {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+  },
+
+  openPatientModal(id) {
+    const form = document.getElementById('patientForm');
+    if (form) form.reset();
+    const editIdInput = document.getElementById('formEditId');
+    const title = document.getElementById('patientModalTitle');
+    const icon = document.getElementById('patientModalIcon');
+    const saveBtn = document.getElementById('saveBtnText');
+    if (id) {
+      const p = DataLayer.getById(id);
+      if (!p) return;
+      if (title) title.textContent = 'Edit Patient';
+      if (icon) icon.className = 'fas fa-user-pen';
+      if (saveBtn) saveBtn.textContent = 'Update Patient';
+      document.getElementById('formName').value = p.name;
+      document.getElementById('formPhone').value = p.phone;
+      document.getElementById('formAge').value = p.age || '';
+      document.getElementById('formGender').value = p.gender || 'Male';
+      document.getElementById('formAddress').value = p.address || '';
+      document.getElementById('formNotes').value = p.notes || '';
+      if (editIdInput) editIdInput.value = p.id;
+    } else {
+      if (title) title.textContent = 'Add New Patient';
+      if (icon) icon.className = 'fas fa-user-plus';
+      if (saveBtn) saveBtn.textContent = 'Save Patient';
+      if (editIdInput) editIdInput.value = '';
+    }
+    this.openModal('patientModal');
+    setTimeout(() => {
+      const nameField = document.getElementById('formName');
+      if (nameField) nameField.focus();
+    }, 350);
+  },
+
+  savePatient(e) {
+    e.preventDefault();
+    const editId = document.getElementById('formEditId').value;
+    const name = Utils.sanitizeText(document.getElementById('formName').value, 80);
+    const phone = Utils.sanitizeText(document.getElementById('formPhone').value, 20);
+    const age = document.getElementById('formAge').value;
+    const gender = document.getElementById('formGender').value;
+    const address = Utils.sanitizeText(document.getElementById('formAddress').value, 200);
+    const notes = Utils.sanitizeText(document.getElementById('formNotes').value, 1000);
+    if (!name || name.length < 2) { Toast.show('Please enter a valid name (min 2 characters)', 'error'); document.getElementById('formName').focus(); return; }
+    if (!phone || !Utils.validatePhone(phone)) { Toast.show('Please enter a valid phone number', 'error'); document.getElementById('formPhone').focus(); return; }
+    try {
+      if (editId) {
+        const p = DataLayer.getById(editId);
+        if (p) {
+          p.name = name; p.phone = phone; p.age = age ? parseInt(age, 10) : null;
+          p.gender = gender; p.address = address; p.notes = notes;
+          DataLayer.save();
+          Toast.show(name + '\'s record updated', 'success');
+        }
+      } else {
+        DataLayer.addPatient({ name, phone, age, gender, address, notes });
+        Toast.show(name + ' added successfully', 'success');
+      }
+      this.closeModal('patientModal');
+      this.render();
+    } catch (err) {
+      console.error('[App] Save patient failed:', err);
+      Toast.show(err.message || 'Failed to save patient', 'error');
+    }
+  },
+
+  viewPatient(id) {
+    const p = DataLayer.getById(id);
+    if (!p) return;
+    this.currentViewPatientId = id;
+    const t = DataLayer.getPatientTotals(p);
+    const initials = Utils.initials(p.name);
+    const avatarBg = Utils.avatarColor(p.name);
+    const body = document.getElementById('viewModalBody');
+    if (!body) return;
+
+    let treatmentsHTML = '';
+    if (p.treatments.length === 0) {
+      treatmentsHTML = '<div class="empty-state" style="padding:30px 20px"><i class="fas fa-tooth"></i><h3>No treatments yet</h3><p>Log the first treatment above.</p></div>';
+    } else {
+      const sorted = p.treatments.slice().sort((a, b) => b.date.localeCompare(a.date));
+      for (let i = 0; i < sorted.length; i++) {
+        const tr = sorted[i];
+        treatmentsHTML += '<div class="log-item">' +
+          '<div class="log-dot">#' + tr.tooth + '</div>' +
+          '<div class="log-body">' +
+            '<div class="log-head"><div class="log-procedure">' + Utils.escape(tr.procedure) + '</div><div class="log-date"><i class="fas fa-calendar"></i> ' + Utils.formatDate(tr.date) + '</div></div>' +
+            (tr.notes ? '<div class="log-notes">' + Utils.escape(tr.notes) + '</div>' : '') +
+            '<div class="log-foot">' +
+              '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
+                '<span class="log-tooth-badge"><i class="fas fa-tooth"></i> Tooth #' + tr.tooth + '</span>' +
+                '<span class="badge ' + (tr.status === 'Completed' ? 'badge-success' : tr.status === 'In Progress' ? 'badge-warning' : 'badge-neutral') + '">' + Utils.escape(tr.status) + '</span>' +
+              '</div>' +
+              '<div style="display:flex;align-items:center;gap:10px">' +
+                '<span class="log-fee">' + Utils.formatMoney(tr.fee) + '</span>' +
+                '<div class="log-actions"><button class="action-btn del" onclick="App.deleteTreatment(\'' + p.id + '\',\'' + tr.id + '\')"><i class="fas fa-trash"></i></button></div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+    }
+
+    let paymentsHTML = '';
+    if (p.payments.length === 0) {
+      paymentsHTML = '<div class="empty-state" style="padding:30px 20px"><i class="fas fa-receipt"></i><h3>No payments recorded</h3></div>';
+    } else {
+      const sorted = p.payments.slice().sort((a, b) => b.date.localeCompare(a.date));
+      for (let i = 0; i < sorted.length; i++) {
+        const pay = sorted[i];
+        paymentsHTML += '<div class="payment-item">' +
+          '<div class="payment-meta">' +
+            '<div style="font-weight:600;color:var(--text-primary)">' + Utils.formatMoney(pay.amount) + '</div>' +
+            '<div class="payment-date"><i class="fas fa-calendar"></i> ' + Utils.formatDate(pay.date) + '</div>' +
+            '<div class="payment-method"><i class="fas fa-credit-card"></i> ' + Utils.escape(pay.method) + (pay.notes ? ' · ' + Utils.escape(pay.notes) : '') + '</div>' +
+          '</div>' +
+          '<div class="payment-actions"><button class="action-btn del" onclick="App.deletePayment(\'' + p.id + '\',\'' + pay.id + '\')"><i class="fas fa-trash"></i></button></div>' +
+        '</div>';
+      }
+    }
+
+    let appointmentsHTML = '';
+    if (p.appointments.length === 0) {
+      appointmentsHTML = '<div class="empty-state" style="padding:30px 20px"><i class="fas fa-calendar-xmark"></i><h3>No upcoming appointments</h3></div>';
+    } else {
+      for (let i = 0; i < p.appointments.length; i++) {
+        const a = p.appointments[i];
+        appointmentsHTML += '<div class="log-item" style="border-left:3px solid var(--accent-primary)">' +
+          '<div class="log-dot" style="background:linear-gradient(135deg,var(--indigo-500),var(--purple-700))"><i class="fas fa-calendar-check"></i></div>' +
+          '<div class="log-body">' +
+            '<div class="log-head"><div class="log-procedure">' + Utils.escape(a.reason) + '</div><div class="log-date"><i class="fas fa-clock"></i> ' + Utils.formatDate(a.date) + ' · ' + Utils.escape(a.time) + '</div></div>' +
+          '</div>' +
+        '</div>';
+      }
+    }
+
+    const chartHTML = this.buildDentalChart(p);
+
+    const html = `
+      <div class="profile-header">
+        <div class="profile-avatar" style="background:${avatarBg}">${initials}</div>
+        <div class="profile-info">
+          <div class="profile-name">${Utils.escape(p.name)}</div>
+          <div class="profile-meta">
+            <span><i class="fas fa-id-card"></i> ${p.id}</span>
+            <span><i class="fas fa-phone"></i> ${Utils.escape(p.phone)}</span>
+            ${p.age ? `<span><i class="fas fa-cake-candles"></i> ${p.age} yrs</span>` : ''}
+            <span><i class="fas fa-venus-mars"></i> ${Utils.escape(p.gender || '—')}</span>
+          </div>
+          ${p.address ? `<div style="margin-top:8px;font-size:12.5px;color:var(--text-tertiary)"><i class="fas fa-map-marker-alt"></i> ${Utils.escape(p.address)}</div>` : ''}
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="App.switchTab(this,'chart')"><i class="fas fa-tooth"></i> Dental Chart</button>
+        <button class="tab" onclick="App.switchTab(this,'treatments')"><i class="fas fa-notes-medical"></i> Treatments (${p.treatments.length})</button>
+        <button class="tab" onclick="App.switchTab(this,'billing')"><i class="fas fa-file-invoice-dollar"></i> Billing</button>
+        <button class="tab" onclick="App.switchTab(this,'appointments')"><i class="fas fa-calendar"></i> Appointments</button>
+      </div>
+
+      <div class="tab-content active" id="tab-chart">
+        <div class="chart-note"><i class="fas fa-info-circle"></i><div>Click any tooth to log a treatment. Purple = has treatment, red = urgent.</div></div>
+        ${chartHTML}
+        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="App.openTreatmentModal('${p.id}')"><i class="fas fa-plus"></i> Log New Treatment</button>
+          <button class="btn btn-whatsapp" onclick="App.openWhatsAppModal('${p.id}')"><i class="fab fa-whatsapp"></i> Send WhatsApp</button>
+          <button class="btn btn-image" onclick="App.saveDigitalSlip('${p.id}')"><i class="fas fa-image"></i> Save Digital Slip</button>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-treatments">
+        <div class="section-head">
+          <div class="section-title"><i class="fas fa-notes-medical"></i> Treatment History</div>
+          <button class="btn btn-primary btn-sm" onclick="App.openTreatmentModal('${p.id}')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+        <div class="log-list">${treatmentsHTML}</div>
+      </div>
+
+      <div class="tab-content" id="tab-billing">
+        <div class="billing-grid">
+          <div class="bill-card"><div class="bill-label"><i class="fas fa-file-invoice"></i> Total Bill</div><div class="bill-value">${Utils.formatMoney(t.totalBill)}</div></div>
+          <div class="bill-card paid"><div class="bill-label"><i class="fas fa-check-circle"></i> Paid</div><div class="bill-value">${Utils.formatMoney(t.totalPaid)}</div></div>
+          <div class="bill-card ${t.balance > 0 ? 'due' : 'paid'}"><div class="bill-label"><i class="fas fa-exclamation-circle"></i> Balance</div><div class="bill-value">${Utils.formatMoney(t.balance)}</div></div>
+        </div>
+        <div class="section-head">
+          <div class="section-title"><i class="fas fa-receipt"></i> Payment History</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            ${t.balance > 0 ? `<button class="btn btn-success btn-sm" onclick="App.openPaymentModal('${p.id}')"><i class="fas fa-plus"></i> Add Payment</button>` : ''}
+            <button class="btn btn-whatsapp btn-sm" onclick="App.openWhatsAppModal('${p.id}','receipt')"><i class="fab fa-whatsapp"></i> Send Receipt</button>
+            <button class="btn btn-image btn-sm" onclick="App.saveDigitalSlip('${p.id}')"><i class="fas fa-image"></i> Save Image</button>
+          </div>
+        </div>
+        <div class="payment-list">${paymentsHTML}</div>
+      </div>
+
+      <div class="tab-content" id="tab-appointments">
+        <div class="section-head">
+          <div class="section-title"><i class="fas fa-calendar-check"></i> Upcoming Appointments</div>
+          <button class="btn btn-whatsapp btn-sm" onclick="App.openWhatsAppModal('${p.id}','reminder')"><i class="fab fa-whatsapp"></i> Send Reminder</button>
+        </div>
+        <div class="log-list">${appointmentsHTML}</div>
+      </div>
+    `;
+    body.innerHTML = html;
+    this.openModal('viewModal');
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // FDI layout for lower jaw (as originally provided)
+  // Upper: 18→11 | 21→28
+  // Lower: 48→41 | 31→38
+  // ═══════════════════════════════════════════════════════════════
+  buildDentalChart(patient) {
+    const teethByNumber = {};
+    patient.treatments.forEach(t => {
+      if (!teethByNumber[t.tooth]) teethByNumber[t.tooth] = [];
+      teethByNumber[t.tooth].push(t);
+    });
+
+    const upperRight = [18, 17, 16, 15, 14, 13, 12, 11];
+    const upperLeft  = [21, 22, 23, 24, 25, 26, 27, 28];
+    const lowerRight = [48, 47, 46, 45, 44, 43, 42, 41];
+    const lowerLeft  = [31, 32, 33, 34, 35, 36, 37, 38];
+
+    const renderTooth = (num) => {
+      const treatments = teethByNumber[num] || [];
+      const hasTx = treatments.length > 0;
+      const hasUrgent = treatments.some(t => t.status === 'In Progress');
+      const hasPlanned = treatments.some(t => t.status === 'Planned');
+      const cls = hasTx ? 'has-treatment' : hasPlanned ? 'has-warning' : hasUrgent ? 'has-urgent' : '';
+      const tip = hasTx
+        ? treatments.map(t => `${t.procedure} (${Utils.formatDate(t.date)})`).join(' • ')
+        : 'Click to log treatment';
+      return `<button class="tooth ${cls}" title="Tooth #${num} — ${Utils.escape(tip)}" onclick="App.openTreatmentModal('${patient.id}', ${num})">
+        ${hasTx ? '<span class="dot"></span>' : ''}
+        <span class="tooth-number">${num}</span>
+        ${hasTx ? '<i class="fas fa-check tooth-icon"></i>' : ''}
+      </button>`;
+    };
+
+    let upperRow = '';
+    for (const n of upperRight) upperRow += renderTooth(n);
+    for (const n of upperLeft) upperRow += renderTooth(n);
+
+    let lowerRow = '';
+    for (const n of lowerRight) lowerRow += renderTooth(n);
+    for (const n of lowerLeft) lowerRow += renderTooth(n);
+
+    return `<div class="dental-chart">
+      <div class="chart-row"><span class="chart-row-label">Upper Right</span>${upperRow}<span class="chart-row-label">Upper Left</span></div>
+      <div class="chart-divider"></div>
+      <div class="chart-row"><span class="chart-row-label">Lower Right</span>${lowerRow}<span class="chart-row-label">Lower Left</span></div>
+    </div>`;
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // FDI layout for lower jaw in receipt (as originally provided)
+  // ═══════════════════════════════════════════════════════════════
+  buildReceiptHTML(patient) {
+    const t = DataLayer.getPatientTotals(patient);
+    const treatments = patient.treatments.slice().sort((a, b) => b.date.localeCompare(a.date));
+    const payments = patient.payments.slice().sort((a, b) => b.date.localeCompare(a.date));
+
+    const teethByNumber = {};
+    treatments.forEach(tr => {
+      if (!teethByNumber[tr.tooth]) teethByNumber[tr.tooth] = [];
+      teethByNumber[tr.tooth].push(tr);
+    });
+
+    const upperRight = [18, 17, 16, 15, 14, 13, 12, 11];
+    const upperLeft  = [21, 22, 23, 24, 25, 26, 27, 28];
+    const lowerRight = [48, 47, 46, 45, 44, 43, 42, 41];
+    const lowerLeft  = [31, 32, 33, 34, 35, 36, 37, 38];
+
+    const renderToothSlip = (num) => {
+      const trs = teethByNumber[num] || [];
+      const hasTx = trs.length > 0;
+      const latest = hasTx ? trs[trs.length - 1] : null;
+
+      let bg = '#f1f5f9';
+      let color = '#64748b';
+      let border = '#cbd5e1';
+
+      if (hasTx) {
+        const status = latest.status;
+        if (status === 'Completed') { bg = '#7c3aed'; color = '#ffffff'; border = '#6d28d9'; }
+        else if (status === 'In Progress') { bg = '#ef4444'; color = '#ffffff'; border = '#dc2626'; }
+        else if (status === 'Planned') { bg = '#f97316'; color = '#ffffff'; border = '#ea580c'; }
+      }
+
+      return '<div class="rcpt-tooth" style="background:' + bg + ';border:2px solid ' + border + ';color:' + color + ';">' +
+        '<span class="rcpt-tooth-num">' + num + '</span>' +
+        '<span class="rcpt-tooth-check" style="opacity:' + (hasTx ? 1 : 0) + ';">&#10003;</span>' +
+      '</div>';
+    };
+
+    const buildTeethRow = (nums) => {
+      let html = '';
+      for (let i = 0; i < nums.length; i++) html += renderToothSlip(nums[i]);
+      return html;
+    };
+
+    let treatmentRowsHTML = '';
+    if (treatments.length === 0) {
+      treatmentRowsHTML = '<tr><td colspan="5" style="padding:16px;text-align:center;color:#94a3b8;font-style:italic;font-size:13px;">No treatments recorded</td></tr>';
+    } else {
+      treatmentRowsHTML = treatments.map(tr => `
+        <tr>
+          <td style="padding:11px 14px;font-size:13px;color:#475569;white-space:nowrap;border-bottom:1px solid #f1f5f9;text-align:left;">${Utils.formatDate(tr.date)}</td>
+          <td style="padding:11px 14px;font-size:13px;color:#7c3aed;font-weight:800;border-bottom:1px solid #f1f5f9;text-align:left;">#${tr.tooth}</td>
+          <td style="padding:11px 14px;font-size:13px;color:#0f172a;font-weight:600;border-bottom:1px solid #f1f5f9;text-align:left;">${Utils.escape(tr.procedure)}</td>
+          <td style="padding:11px 14px;font-size:12px;text-align:center;border-bottom:1px solid #f1f5f9;">
+            <span style="display:inline-block;padding:4px 12px;border-radius:50px;font-weight:700;background:${
+              tr.status === 'Completed' ? '#dcfce7' :
+              tr.status === 'In Progress' ? '#fee2e2' : '#ffedd5'
+            };color:${
+              tr.status === 'Completed' ? '#15803d' :
+              tr.status === 'In Progress' ? '#b91c1c' : '#c2410c'
+            };">${Utils.escape(tr.status)}</span>
+          </td>
+          <td style="padding:11px 14px;font-size:13px;font-weight:800;color:#0f172a;text-align:right;white-space:nowrap;border-bottom:1px solid #f1f5f9;">${Utils.formatMoney(tr.fee)}</td>
+        </tr>
+      `).join('');
+    }
+
+    let paymentRowsHTML = '';
+    if (payments.length === 0) {
+      paymentRowsHTML = '<tr><td colspan="3" style="padding:16px;text-align:center;color:#94a3b8;font-style:italic;font-size:13px;">No payments recorded</td></tr>';
+    } else {
+      paymentRowsHTML = payments.map(pay => `
+        <tr>
+          <td style="padding:10px 14px;font-size:13px;color:#475569;white-space:nowrap;border-bottom:1px solid #f1f5f9;text-align:left;vertical-align:middle;">${Utils.formatDate(pay.date)}</td>
+          <td style="padding:10px 14px;font-size:13px;color:#475569;border-bottom:1px solid #f1f5f9;text-align:left;vertical-align:middle;word-break:break-word;">${Utils.escape(pay.method)}${pay.notes ? ' · ' + Utils.escape(pay.notes) : ''}</td>
+          <td style="padding:10px 14px;font-size:13px;font-weight:800;color:#15803d;text-align:right;white-space:nowrap;border-bottom:1px solid #f1f5f9;vertical-align:middle;">${Utils.formatMoney(pay.amount)}</td>
+        </tr>
+      `).join('');
+    }
+
+    let apptHTML = '';
+    if (patient.appointments.length === 0) {
+      apptHTML = '<div style="color:#94a3b8;font-style:italic;font-size:13px;padding:8px 0;">No upcoming appointments</div>';
+    } else {
+      apptHTML = patient.appointments.map(a => `
+        <div style="display:flex;gap:10px;padding:10px 14px;background:#faf5ff;border-left:3px solid #7c3aed;border-radius:6px;margin-bottom:8px;font-size:13px;box-sizing:border-box;">
+          <div style="flex:1;">
+            <div style="font-weight:700;color:#0f172a;font-size:13px;">${Utils.escape(a.reason)}</div>
+            <div style="color:#64748b;font-size:12px;margin-top:3px;">${Utils.formatDate(a.date)} · ${Utils.escape(a.time)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const generatedAt = new Date().toLocaleString('en-PK', {
+      day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+
+    const initials = Utils.initials(patient.name);
+    const avatarSolid = Utils.avatarSolid(patient.name);
+    const toothRowStyle = 'display:grid;grid-template-columns:repeat(8,42px);gap:5px;justify-content:center;';
+
+    return `
+      <div style="width:880px;background:#ffffff;font-family:Inter,Arial,Helvetica,sans-serif;color:#0f172a;padding:0;margin:0;box-sizing:border-box;">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:28px 40px;background:#2E1A47;color:#ffffff;box-sizing:border-box;">
+          <div style="display:flex;align-items:center;gap:16px;box-sizing:border-box;">
+            <div style="width:66px;height:66px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;padding:0;margin:0;flex-shrink:0;line-height:0;">
+              ${ZDC_LOGO_WHITE}
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;">
+              <div style="font-family:'Manrope','Inter',Arial,sans-serif;font-size:23px;font-weight:800;letter-spacing:-.3px;color:#ffffff;line-height:1.15;">Zulfiqar Dental Clinic</div>
+              <div style="font-size:12px;color:#c8b8ff;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:3px;line-height:1.2;">Premium Dental Care</div>
+            </div>
+          </div>
+          <div style="text-align:right;font-size:12px;color:#e0d7ff;line-height:1.7;box-sizing:border-box;">
+            <div style="color:#ffffff;font-weight:700;font-size:14px;">Patient Digital Slip</div>
+            <div>${generatedAt}</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:18px;padding:24px 40px;background:#faf5ff;border-bottom:2px solid #ede9fe;box-sizing:border-box;">
+          <div style="width:72px;height:72px;border-radius:16px;background:${avatarSolid};color:#ffffff;display:inline-flex;align-items:center;justify-content:center;font-family:'Manrope',Arial,sans-serif;font-weight:800;font-size:26px;flex-shrink:0;box-sizing:border-box;padding:0;margin:0;line-height:1;">${initials}</div>
+          <div style="flex:1;box-sizing:border-box;">
+            <div style="font-family:'Manrope',Arial,sans-serif;font-size:26px;font-weight:800;color:#2E1A47;letter-spacing:-.4px;line-height:1.2;">${Utils.escape(patient.name)}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:8px;font-size:13px;color:#4c1d95;">
+              <span><strong style="color:#6d28d9;">ID:</strong> ${patient.id}</span>
+              <span><strong style="color:#6d28d9;">Phone:</strong> ${Utils.escape(patient.phone)}</span>
+              ${patient.age ? `<span><strong style="color:#6d28d9;">Age:</strong> ${patient.age} yrs</span>` : ''}
+              ${patient.gender ? `<span><strong style="color:#6d28d9;">Gender:</strong> ${patient.gender}</span>` : ''}
+            </div>
+            ${patient.address ? `<div style="font-size:12.5px;color:#64748b;margin-top:6px;">📍 ${Utils.escape(patient.address)}</div>` : ''}
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px 40px;background:#ffffff;box-sizing:border-box;">
+          <div style="border:2px solid #e9d5ff;border-left:5px solid #7c3aed;background:#faf5ff;padding:16px 20px;border-radius:12px;box-sizing:border-box;">
+            <div style="font-size:11px;color:#6b7280;text-transform:uppercase;font-weight:700;letter-spacing:.6px;margin-bottom:6px;">Total Bill</div>
+            <div style="font-family:'Manrope',Arial,sans-serif;font-size:24px;font-weight:800;color:#2E1A47;">${Utils.formatMoney(t.totalBill)}</div>
+          </div>
+          <div style="border:2px solid #bbf7d0;border-left:5px solid #16a34a;background:#f0fdf4;padding:16px 20px;border-radius:12px;box-sizing:border-box;">
+            <div style="font-size:11px;color:#6b7280;text-transform:uppercase;font-weight:700;letter-spacing:.6px;margin-bottom:6px;">Amount Paid</div>
+            <div style="font-family:'Manrope',Arial,sans-serif;font-size:24px;font-weight:800;color:#15803d;">${Utils.formatMoney(t.totalPaid)}</div>
+          </div>
+          <div style="border:2px solid ${t.balance > 0 ? '#fecaca' : '#bbf7d0'};border-left:5px solid ${t.balance > 0 ? '#dc2626' : '#16a34a'};background:${t.balance > 0 ? '#fef2f2' : '#f0fdf4'};padding:16px 20px;border-radius:12px;box-sizing:border-box;">
+            <div style="font-size:11px;color:#6b7280;text-transform:uppercase;font-weight:700;letter-spacing:.6px;margin-bottom:6px;">Balance Due</div>
+            <div style="font-family:'Manrope',Arial,sans-serif;font-size:24px;font-weight:800;color:${t.balance > 0 ? '#dc2626' : '#15803d'};">${Utils.formatMoney(t.balance)}</div>
+          </div>
+        </div>
+
+        <div style="padding:8px 40px 24px;box-sizing:border-box;">
+          <div style="font-family:'Manrope',Arial,sans-serif;font-size:15px;font-weight:800;color:#2E1A47;margin-bottom:14px;padding-bottom:10px;border-bottom:2px dashed #c4b5fd;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">
+            Dental Chart (FDI Notation)
+          </div>
+
+          <div style="background:#faf5ff;border:2px solid #ede9fe;border-radius:14px;padding:22px 24px;box-sizing:border-box;overflow:visible;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:14px;box-sizing:border-box;">
+              <div style="${toothRowStyle}">${buildTeethRow(upperRight)}</div>
+              <div style="width:2px;height:54px;background:#c4b5fd;flex-shrink:0;box-sizing:border-box;"></div>
+              <div style="${toothRowStyle}">${buildTeethRow(upperLeft)}</div>
+            </div>
+            <div style="height:2px;background:#c4b5fd;margin:16px 0;opacity:.5;box-sizing:border-box;"></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:14px;box-sizing:border-box;">
+              <div style="${toothRowStyle}">${buildTeethRow(lowerRight)}</div>
+              <div style="width:2px;height:54px;background:#c4b5fd;flex-shrink:0;box-sizing:border-box;"></div>
+              <div style="${toothRowStyle}">${buildTeethRow(lowerLeft)}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:22px;justify-content:center;margin-top:16px;flex-wrap:wrap;font-size:12px;color:#64748b;box-sizing:border-box;">
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#7c3aed;margin-right:6px;vertical-align:middle;"></span> Completed</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#ef4444;margin-right:6px;vertical-align:middle;"></span> In Progress</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#f97316;margin-right:6px;vertical-align:middle;"></span> Planned</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#f1f5f9;border:1px solid #cbd5e1;margin-right:6px;vertical-align:middle;"></span> Untreated</span>
+          </div>
+        </div>
+
+        <div style="padding:8px 40px 20px;box-sizing:border-box;">
+          <div style="font-family:'Manrope',Arial,sans-serif;font-size:15px;font-weight:800;color:#2E1A47;margin-bottom:14px;padding-bottom:10px;border-bottom:2px dashed #c4b5fd;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">
+            Treatment History
+          </div>
+          <table style="width:100%;border-collapse:collapse;background:#ffffff;border-radius:12px;overflow:hidden;border:2px solid #f1f5f9;box-sizing:border-box;">
+            <thead>
+              <tr style="background:#7c3aed;color:#ffffff;">
+                <th style="text-align:left;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Date</th>
+                <th style="text-align:left;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Tooth</th>
+                <th style="text-align:left;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Procedure</th>
+                <th style="text-align:center;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Status</th>
+                <th style="text-align:right;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Fee</th>
+              </tr>
+            </thead>
+            <tbody>${treatmentRowsHTML}</tbody>
+          </table>
+        </div>
+
+        <div style="padding:8px 40px 20px;box-sizing:border-box;">
+          <div style="font-family:'Manrope',Arial,sans-serif;font-size:15px;font-weight:800;color:#2E1A47;margin-bottom:14px;padding-bottom:10px;border-bottom:2px dashed #c4b5fd;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">
+            Payment History
+          </div>
+          <table style="width:100%;border-collapse:collapse;background:#ffffff;border-radius:12px;overflow:hidden;border:2px solid #f1f5f9;box-sizing:border-box;table-layout:fixed;">
+            <colgroup>
+              <col style="width:22%;">
+              <col style="width:58%;">
+              <col style="width:20%;">
+            </colgroup>
+            <thead>
+              <tr style="background:#f8fafc;color:#475569;">
+                <th style="text-align:left;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Date</th>
+                <th style="text-align:left;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Method / Notes</th>
+                <th style="text-align:right;padding:12px 14px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;box-sizing:border-box;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>${paymentRowsHTML}</tbody>
+          </table>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:8px 40px 24px;box-sizing:border-box;">
+          <div style="box-sizing:border-box;">
+            <div style="font-family:'Manrope',Arial,sans-serif;font-weight:800;color:#2E1A47;margin-bottom:12px;text-transform:uppercase;letter-spacing:.6px;font-size:12px;">📅 Upcoming Appointments</div>
+            ${apptHTML}
+          </div>
+          <div style="box-sizing:border-box;">
+            <div style="font-family:'Manrope',Arial,sans-serif;font-weight:800;color:#2E1A47;margin-bottom:12px;text-transform:uppercase;letter-spacing:.6px;font-size:12px;">📋 Medical Notes</div>
+            <div style="background:#f8fafc;border-left:4px solid #7c3aed;padding:14px 16px;border-radius:8px;font-size:13px;color:#475569;line-height:1.65;min-height:70px;box-sizing:border-box;">
+              ${patient.notes ? Utils.escape(patient.notes) : '<em style="color:#94a3b8;">No specific medical notes recorded.</em>'}
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:24px 40px;background:#2E1A47;color:#e0d7ff;box-sizing:border-box;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:12px;box-sizing:border-box;">
+            <div style="box-sizing:border-box;display:flex;align-items:center;gap:12px;">
+              <div style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;padding:0;margin:0;flex-shrink:0;line-height:0;">
+                ${ZDC_LOGO_WHITE}
+              </div>
+              <div>
+                <div style="font-weight:800;color:#ffffff;font-size:14px;margin-bottom:4px;">Zulfiqar Dental Clinic</div>
+                <div style="line-height:1.5;">${CONFIG.CLINIC_ADDRESS}</div>
+              </div>
+            </div>
+            <div style="text-align:right;box-sizing:border-box;">
+              <div style="font-weight:800;color:#ffffff;font-size:13px;">📞 ${CONFIG.CLINIC_PHONE}</div>
+              <div style="font-style:italic;margin-top:4px;">Computer-generated slip · Please retain for records</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    `;
+  },
+
+  async saveDigitalSlip(patientId) {
+    const p = DataLayer.getById(patientId);
+    if (!p) { Toast.show('Patient not found', 'error'); return; }
+
+    if (typeof html2canvas === 'undefined') {
+      Toast.show('Image library still loading. Please try again in a moment.', 'warning', 'Please wait');
+      return;
+    }
+
+    const btn = document.getElementById('saveSlipBtn');
+    const originalHTML = btn ? btn.innerHTML : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+    }
+
+    const canvas = document.getElementById('receiptCanvas');
+    canvas.innerHTML = this.buildReceiptHTML(p);
+
+    const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+
+    try {
+      await fontsReady;
+      const imgs = canvas.querySelectorAll('img');
+      if (imgs.length > 0) {
+        await Promise.all(Array.from(imgs).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise(res => { img.onload = img.onerror = res; });
+        }));
+      }
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      await new Promise(r => setTimeout(r, 250));
+
+      const rendered = await html2canvas(canvas, {
+        useCORS: true,
+        scale: 2,
+        logging: false,
+        backgroundColor: '#ffffff',
+        allowTaint: false,
+        width: 880,
+        windowWidth: 880,
+        scrollX: 0,
+        scrollY: 0,
+        imageTimeout: 15000
+      });
+
+      const fileName = 'Zulfiqar-Dental-' + (p.name.replace(/\s+/g, '-')) + '-' + Utils.todayISO() + '.png';
+      const dataUrl = rendered.toDataURL('image/png', 1.0);
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [] })) {
+        try {
+          const blob = await new Promise(res => rendered.toBlob(res, 'image/png', 1.0));
+          const file = new File([blob], fileName, { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'Zulfiqar Dental — ' + p.name,
+              text: 'Patient digital slip'
+            });
+            Toast.show('Digital slip ready! 🎉', 'success', 'Saved', 3000);
+            canvas.innerHTML = '';
+            if (btn) { btn.disabled = false; btn.innerHTML = originalHTML; }
+            return;
+          }
+        } catch (shareErr) {}
+      }
+
+      const link = document.createElement('a');
+      link.download = fileName;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      Toast.show('Digital slip saved to your device 📸', 'success', 'Saved', 3500);
+
+    } catch (err) {
+      console.error('[DigitalSlip] Render failed:', err);
+      Toast.show('Could not generate slip. Please try again.', 'error', 'Failed');
+    } finally {
+      canvas.innerHTML = '';
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      }
+    }
+  },
+
+  switchTab(btn, tabName) {
+    const container = btn.closest('.modal-body');
+    const tabs = container.querySelectorAll('.tab');
+    const contents = container.querySelectorAll('.tab-content');
+    for (let i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+    for (let i = 0; i < contents.length; i++) contents[i].classList.remove('active');
+    btn.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  },
+
+  openTreatmentModal(patientId, toothNumber) {
+    document.getElementById('treatmentForm').reset();
+    document.getElementById('treatmentPatientId').value = patientId;
+    document.getElementById('treatmentDate').value = Utils.todayISO();
+    if (toothNumber) document.getElementById('treatmentTooth').value = toothNumber;
+    this.openModal('treatmentModal');
+    setTimeout(() => {
+      if (!toothNumber) document.getElementById('treatmentTooth').focus();
+      else document.getElementById('treatmentProcedure').focus();
+    }, 350);
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // FDI validation — replaces the old "1-32" check
+  // ═══════════════════════════════════════════════════════════════
+  saveTreatment(e) {
+    e.preventDefault();
+    const patientId = document.getElementById('treatmentPatientId').value;
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    const tooth = parseInt(document.getElementById('treatmentTooth').value, 10);
+    const date = document.getElementById('treatmentDate').value;
+    const procedure = document.getElementById('treatmentProcedure').value;
+    const fee = parseInt(document.getElementById('treatmentFee').value, 10) || 0;
+    const status = document.getElementById('treatmentStatus').value;
+    const notes = Utils.sanitizeText(document.getElementById('treatmentNotes').value, 1000);
+
+    // FDI validation: accept 11–18, 21–28, 31–38, 41–48
+    if (!tooth || !isValidFDI(tooth)) {
+      Toast.show('Enter a valid FDI tooth number (11–18, 21–28, 31–38, 41–48)', 'error', 'Invalid Tooth Number', 4500);
+      document.getElementById('treatmentTooth').focus();
+      return;
+    }
+
+    p.treatments.push({ id: Utils.generateId('T'), tooth, procedure, date, fee, status, notes });
+    DataLayer.save();
+    this.closeModal('treatmentModal');
+    Toast.show('Treatment logged for tooth #' + tooth, 'success');
+    if (document.getElementById('viewModal').classList.contains('active')) this.viewPatient(patientId);
+    this.scheduleRender();
+  },
+
+  deleteTreatment(patientId, treatmentId) {
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    this.confirm('Delete Treatment', 'Delete this treatment entry?', 'Delete', () => {
+      p.treatments = p.treatments.filter(t => t.id !== treatmentId);
+      DataLayer.save();
+      this.viewPatient(patientId);
+      this.scheduleRender();
+      Toast.show('Treatment deleted', 'success');
+    });
+  },
+
+  openPaymentModal(patientId) {
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    const t = DataLayer.getPatientTotals(p);
+    document.getElementById('paymentPatientId').value = patientId;
+    document.getElementById('paymentBalanceDisplay').textContent = Utils.formatMoney(t.balance);
+    document.getElementById('paymentForm').reset();
+    document.getElementById('paymentAmount').value = t.balance > 0 ? t.balance : '';
+    this.openModal('paymentModal');
+    setTimeout(() => document.getElementById('paymentAmount').focus(), 350);
+  },
+
+  savePayment(e) {
+    e.preventDefault();
+    const patientId = document.getElementById('paymentPatientId').value;
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    const amount = parseInt(document.getElementById('paymentAmount').value, 10) || 0;
+    const method = document.getElementById('paymentMethod').value;
+    const notes = Utils.sanitizeText(document.getElementById('paymentNotes').value, 200);
+    if (amount <= 0) { Toast.show('Enter valid amount', 'error'); return; }
+    p.payments.push({ id: Utils.generateId('PAY'), date: Utils.todayISO(), amount, method, notes });
+    DataLayer.save();
+    this.closeModal('paymentModal');
+    Toast.show('Payment of ' + Utils.formatMoney(amount) + ' recorded', 'success');
+    if (document.getElementById('viewModal').classList.contains('active')) this.viewPatient(patientId);
+    this.scheduleRender();
+  },
+
+  deletePayment(patientId, paymentId) {
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    this.confirm('Delete Payment', 'Delete this payment record?', 'Delete', () => {
+      p.payments = p.payments.filter(x => x.id !== paymentId);
+      DataLayer.save();
+      this.viewPatient(patientId);
+      this.scheduleRender();
+      Toast.show('Payment deleted', 'success');
+    });
+  },
+
+  openWhatsAppModal(patientId, defaultType) {
+    defaultType = defaultType || 'reminder';
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    document.getElementById('waPatientId').value = patientId;
+    document.getElementById('waRecipient').value = p.name + ' · ' + p.phone;
+    this.selectWhatsAppType(defaultType);
+    this.openModal('whatsappModal');
+  },
+
+  selectWhatsAppType(type) {
+    const patientId = document.getElementById('waPatientId').value;
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    document.querySelectorAll('.wa-action').forEach(el => el.classList.toggle('active', el.dataset.waType === type));
+    document.getElementById('waType').value = type;
+    document.getElementById('waCustomGroup').style.display = type === 'custom' ? 'flex' : 'none';
+    const t = DataLayer.getPatientTotals(p);
+    let message = '';
+    if (type === 'reminder') {
+      const nextAppt = p.appointments[0];
+      if (nextAppt) {
+        message = 'Assalam-o-Alaikum ' + p.name + ',\n\nFriendly reminder from *' + CONFIG.CLINIC_NAME + '* 🦷\n\n📅 Appointment: *' + Utils.formatDate(nextAppt.date) + ' at ' + nextAppt.time + '*\n📋 Reason: ' + nextAppt.reason + '\n\n📍 ' + CONFIG.CLINIC_ADDRESS + '\n📞 ' + CONFIG.CLINIC_PHONE + '\n\nThank you! 😊';
+      } else {
+        message = 'Assalam-o-Alaikum ' + p.name + ',\n\nFriendly reminder from *' + CONFIG.CLINIC_NAME + '* 🦷\n\nReply or call *' + CONFIG.CLINIC_PHONE + '* to book.\n\n📍 ' + CONFIG.CLINIC_ADDRESS + '\n\nThank you! 😊';
+      }
+    } else if (type === 'receipt') {
+      const treatmentLines = p.treatments.slice(-5).map(tr => '• ' + tr.procedure + ' (Tooth #' + tr.tooth + ') — Rs. ' + tr.fee.toLocaleString()).join('\n');
+      message = 'Assalam-o-Alaikum ' + p.name + ',\n\n*Payment Summary* from *' + CONFIG.CLINIC_NAME + '* 🦷\n\n' + (treatmentLines ? '📋 *Recent Treatments:*\n' + treatmentLines + '\n\n' : '') + '💰 *Billing:*\nTotal Bill: Rs. ' + t.totalBill.toLocaleString() + '\nPaid: Rs. ' + t.totalPaid.toLocaleString() + '\n*Balance: Rs. ' + t.balance.toLocaleString() + '*\n\n' + (t.balance > 0 ? 'Please settle at your convenience.\n\n' : '✅ All paid!\n\n') + '📞 ' + CONFIG.CLINIC_PHONE + '\n📍 ' + CONFIG.CLINIC_ADDRESS + '\n\nThank you! 😊';
+    } else if (type === 'thanks') {
+      message = 'Assalam-o-Alaikum ' + p.name + ',\n\nThank you for visiting *' + CONFIG.CLINIC_NAME + '*! 🦷✨\n\n📞 ' + CONFIG.CLINIC_PHONE + '\n\n- Team Zulfiqar Dental Clinic';
+    } else if (type === 'custom') {
+      message = document.getElementById('waCustomText').value || 'Type your message...';
+    }
+    document.getElementById('waPreview').innerHTML = Utils.escape(message).replace(/\n/g, '<br>');
+  },
+
+  sendWhatsApp() {
+    const patientId = document.getElementById('waPatientId').value;
+    const type = document.getElementById('waType').value;
+    const p = DataLayer.getById(patientId);
+    if (!p) return;
+    let message = '';
+    if (type === 'custom') {
+      message = document.getElementById('waCustomText').value.trim();
+      if (!message) { Toast.show('Enter a message', 'warning'); return; }
+    } else {
+      message = document.getElementById('waPreview').innerText;
+    }
+    window.open('https://wa.me/' + Utils.toWhatsAppNumber(p.phone) + '?text=' + encodeURIComponent(message), '_blank');
+    this.closeModal('whatsappModal');
+    Toast.show('WhatsApp opened for ' + p.name, 'whatsapp', 'WhatsApp');
+  },
+
+  confirm(title, message, actionText, callback) {
+    document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmMessage').textContent = message;
+    document.getElementById('confirmActionText').textContent = actionText;
+    this.pendingConfirmAction = callback;
+    const btn = document.getElementById('confirmActionBtn');
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', () => {
+      if (typeof this.pendingConfirmAction === 'function') this.pendingConfirmAction();
+      this.closeModal('confirmModal');
+      this.pendingConfirmAction = null;
+    });
+    this.openModal('confirmModal');
+  },
+
+  confirmReset() {
+    this.confirm('Reset All Data', 'Erase all patient records permanently? This cannot be undone.', 'Reset', () => {
+      DataLayer.reset();
+      this.render();
+      Toast.show('All data cleared', 'success');
+    });
+  },
+
+  printReport() {
+    const printReport = document.getElementById('printReport');
+    const all = DataLayer.patients;
+    const filtered = this.getFilteredPatients();
+    let tb = 0, tp = 0;
+    all.forEach(p => { const t = DataLayer.getPatientTotals(p); tb += t.totalBill; tp += t.totalPaid; });
+    const totalBalance = Math.max(0, tb - tp);
+    const today = Utils.todayISO();
+    const todayVisits = all.reduce((c, p) => c + p.treatments.filter(tr => tr.date === today).length, 0);
+    const generatedAt = new Date().toLocaleString('en-PK', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const isFiltered = this.searchQuery && filtered.length !== all.length;
+    let rows = '';
+    for (const p of filtered) {
+      const t = DataLayer.getPatientTotals(p);
+      const balanceClass = t.balance > 0 ? 'pr-balance-due' : 'pr-balance-paid';
+      const balanceText = t.balance > 0 ? Utils.formatMoney(t.balance) : 'Paid ✓';
+      rows += '<tr>' +
+        '<td><div class="pr-name">' + Utils.escape(p.name) + '</div><div class="pr-id">' + p.id + '</div></td>' +
+        '<td><div>' + Utils.escape(p.phone) + '</div><div style="font-size:8pt;color:#6b7280">' + Utils.escape(p.address || '—') + '</div></td>' +
+        '<td>' + (p.age ? p.age + ' yrs' : '—') + ' · ' + (p.gender || '—') + '</td>' +
+        '<td class="pr-money">' + Utils.formatMoney(t.totalBill) + '</td>' +
+        '<td class="pr-money" style="color:#16a34a">' + Utils.formatMoney(t.totalPaid) + '</td>' +
+        '<td class="pr-money ' + balanceClass + '">' + balanceText + '</td>' +
+      '</tr>';
+    }
+    printReport.innerHTML = `
+      <div class="pr-header">
+        <div class="pr-brand"><div class="pr-brand-icon">🦷</div><div class="pr-brand-text"><div class="pr-brand-name">Zulfiqar Dental Clinic</div><div class="pr-brand-tag">PREMIUM DENTAL CARE</div></div></div>
+        <div class="pr-meta"><div><strong>Report Date:</strong> ${generatedAt}</div><div><strong>Contact:</strong> ${CONFIG.CLINIC_PHONE}</div><div><strong>Address:</strong> ${CONFIG.CLINIC_ADDRESS}</div></div>
+      </div>
+      <div class="pr-title">Patient Summary Report</div>
+      <div class="pr-subtitle">${isFiltered ? 'Filtered view · Showing ' + filtered.length + ' of ' + all.length + ' patients' : 'Complete patient register · ' + all.length + ' patient' + (all.length !== 1 ? 's' : '')}</div>
+      <div class="pr-stats">
+        <div class="pr-stat"><div class="pr-stat-label">Total Patients</div><div class="pr-stat-value">${all.length}</div></div>
+        <div class="pr-stat danger"><div class="pr-stat-label">Outstanding</div><div class="pr-stat-value">${Utils.formatMoney(totalBalance)}</div></div>
+        <div class="pr-stat success"><div class="pr-stat-label">Collected</div><div class="pr-stat-value">${Utils.formatMoney(tp)}</div></div>
+        <div class="pr-stat warning"><div class="pr-stat-label">Today's Visits</div><div class="pr-stat-value">${todayVisits}</div></div>
+      </div>
+      <table class="pr-table">
+        <thead><tr><th>Patient</th><th>Contact</th><th>Age / Gender</th><th class="pr-right">Total Bill</th><th class="pr-right">Paid</th><th class="pr-right">Balance</th></tr></thead>
+        <tbody>${rows || '<tr><td colspan="6" style="text-align:center;padding:20px;color:#6b7280">No patients</td></tr>'}</tbody>
+      </table>
+      <div class="pr-summary">
+        <div class="pr-summary-box">
+          <h3>Financial Summary</h3>
+          <div class="pr-summary-row"><span>Total Billing</span><span>${Utils.formatMoney(tb)}</span></div>
+          <div class="pr-summary-row paid"><span>Total Collected</span><span>${Utils.formatMoney(tp)}</span></div>
+          <div class="pr-summary-row due"><span>Outstanding</span><span>${Utils.formatMoney(totalBalance)}</span></div>
+          <div class="pr-summary-row"><span>Collection Rate</span><span>${tb > 0 ? Math.round((tp / tb) * 100) : 0}%</span></div>
+        </div>
+        <div class="pr-summary-box">
+          <h3>Clinic Info</h3>
+          <div class="pr-summary-row"><span>Clinic</span><span>Zulfiqar Dental</span></div>
+          <div class="pr-summary-row"><span>Patients</span><span>${all.length}</span></div>
+          <div class="pr-summary-row"><span>Active Balance</span><span>${all.filter(p => DataLayer.getPatientTotals(p).balance > 0).length}</span></div>
+          <div class="pr-summary-row"><span>Type</span><span>Summary</span></div>
+        </div>
+      </div>
+      <div class="pr-sign">
+        <div class="pr-sign-box"><div class="pr-sign-line">Authorized Signature</div><div>Clinic Seal</div></div>
+        <div class="pr-sign-box"><div class="pr-sign-line">Date</div><div>${Utils.todayISO()}</div></div>
+      </div>
+      <div class="pr-footer"><strong>Zulfiqar Dental Clinic</strong> — ${CONFIG.CLINIC_ADDRESS} · ${CONFIG.CLINIC_PHONE}<br>Computer-generated report.</div>
+    `;
+    const doPrint = () => setTimeout(() => window.print(), 200);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(doPrint).catch(doPrint);
+    else doPrint();
+  },
+
+  printPatientReport(patientId) {
+    const p = DataLayer.getById(patientId);
+    if (!p) { Toast.show('Select a patient', 'warning'); return; }
+    const printReport = document.getElementById('printReport');
+    const t = DataLayer.getPatientTotals(p);
+    const initials = Utils.initials(p.name);
+    const generatedAt = new Date().toLocaleString('en-PK', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+    let treatmentRows = '';
+    if (p.treatments.length === 0) {
+      treatmentRows = '<tr><td colspan="5" style="text-align:center;padding:20px;color:#6b7280">No treatments</td></tr>';
+    } else {
+      const sorted = p.treatments.slice().sort((a, b) => b.date.localeCompare(a.date));
+      for (const tr of sorted) {
+        treatmentRows += '<tr>' +
+          '<td>' + Utils.formatDate(tr.date) + '</td>' +
+          '<td><strong>Tooth #' + tr.tooth + '</strong></td>' +
+          '<td>' + Utils.escape(tr.procedure) + '</td>' +
+          '<td><span style="padding:2px 8px;border-radius:10px;font-size:8pt;background:' + (tr.status === 'Completed' ? '#dcfce7' : tr.status === 'In Progress' ? '#ffedd5' : '#e5e7eb') + ';color:' + (tr.status === 'Completed' ? '#16a34a' : tr.status === 'In Progress' ? '#ea580c' : '#475569') + '">' + Utils.escape(tr.status) + '</span></td>' +
+          '<td class="pr-money">' + Utils.formatMoney(tr.fee) + '</td>' +
+        '</tr>';
+      }
+    }
+
+    let paymentRows = '';
+    if (p.payments.length === 0) {
+      paymentRows = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#6b7280">No payments</td></tr>';
+    } else {
+      const sorted = p.payments.slice().sort((a, b) => b.date.localeCompare(a.date));
+      for (const pay of sorted) {
+        paymentRows += '<tr>' +
+          '<td>' + Utils.formatDate(pay.date) + '</td>' +
+          '<td>' + Utils.escape(pay.method) + (pay.notes ? ' · ' + Utils.escape(pay.notes) : '') + '</td>' +
+          '<td></td>' +
+          '<td class="pr-money" style="color:#16a34a">' + Utils.formatMoney(pay.amount) + '</td>' +
+        '</tr>';
+      }
+    }
+
+    printReport.innerHTML = `
+      <div class="pr-header">
+        <div class="pr-brand"><div class="pr-brand-icon">🦷</div><div class="pr-brand-text"><div class="pr-brand-name">Zulfiqar Dental Clinic</div><div class="pr-brand-tag">PREMIUM DENTAL CARE</div></div></div>
+        <div class="pr-meta"><div><strong>Report:</strong> ${generatedAt}</div><div><strong>Contact:</strong> ${CONFIG.CLINIC_PHONE}</div><div><strong>Address:</strong> ${CONFIG.CLINIC_ADDRESS}</div></div>
+      </div>
+      <div class="pr-title">Patient Treatment Report</div>
+      <div class="pr-subtitle">Confidential medical record summary</div>
+      <div class="pr-patient-header">
+        <div class="pr-patient-avatar">${initials}</div>
+        <div>
+          <div class="pr-patient-name">${Utils.escape(p.name)}</div>
+          <div class="pr-patient-meta">ID: <strong>${p.id}</strong> · Phone: ${Utils.escape(p.phone)}${p.age ? ' · Age: ' + p.age + ' yrs' : ''} ${p.gender ? ' · ' + p.gender : ''}</div>
+          ${p.address ? '<div class="pr-patient-meta">📍 ' + Utils.escape(p.address) + '</div>' : ''}
+        </div>
+      </div>
+      <div class="pr-stats">
+        <div class="pr-stat"><div class="pr-stat-label">Treatments</div><div class="pr-stat-value">${p.treatments.length}</div></div>
+        <div class="pr-stat"><div class="pr-stat-label">Total Billing</div><div class="pr-stat-value">${Utils.formatMoney(t.totalBill)}</div></div>
+        <div class="pr-stat success"><div class="pr-stat-label">Paid</div><div class="pr-stat-value">${Utils.formatMoney(t.totalPaid)}</div></div>
+        <div class="pr-stat ${t.balance > 0 ? 'danger' : 'success'}"><div class="pr-stat-label">Balance</div><div class="pr-stat-value">${Utils.formatMoney(t.balance)}</div></div>
+      </div>
+      <table class="pr-table">
+        <thead><tr><th>Date</th><th>Tooth</th><th>Procedure</th><th>Status</th><th class="pr-right">Fee</th></tr></thead>
+        <tbody>${treatmentRows}</tbody>
+      </table>
+      <div class="pr-summary-box" style="margin-bottom:16px">
+        <h3>Payment History</h3>
+        <table class="pr-table" style="margin-bottom:0">
+          <thead><tr><th>Date</th><th>Method</th><th>Notes</th><th class="pr-right">Amount</th></tr></thead>
+          <tbody>${paymentRows}</tbody>
+        </table>
+      </div>
+      <div class="pr-summary">
+        <div class="pr-summary-box">
+          <h3>Medical Notes</h3>
+          <div style="font-size:9.5pt;color:#4b5563;line-height:1.6;padding:6px 0">${p.notes ? Utils.escape(p.notes) : '<em style="color:#9ca3af">No specific notes.</em>'}</div>
+        </div>
+        <div class="pr-summary-box">
+          <h3>Billing Summary</h3>
+          <div class="pr-summary-row"><span>Total Charges</span><span>${Utils.formatMoney(t.totalBill)}</span></div>
+          <div class="pr-summary-row paid"><span>Paid</span><span>${Utils.formatMoney(t.totalPaid)}</span></div>
+          <div class="pr-summary-row due"><span>Balance</span><span>${Utils.formatMoney(t.balance)}</span></div>
+        </div>
+      </div>
+      <div class="pr-sign">
+        <div class="pr-sign-box"><div class="pr-sign-line">Authorized Signature</div><div>Clinic Seal</div></div>
+        <div class="pr-sign-box"><div class="pr-sign-line">Patient / Guardian</div><div>Acknowledgment</div></div>
+      </div>
+      <div class="pr-footer"><strong>Zulfiqar Dental Clinic</strong> — ${CONFIG.CLINIC_ADDRESS} · ${CONFIG.CLINIC_PHONE}<br>Computer-generated report.</div>
+    `;
+    const doPrint = () => setTimeout(() => window.print(), 200);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(doPrint).catch(doPrint);
+    else doPrint();
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  ThemeManager.init();
+  PWAManager.init();
+  App.init();
+});
+
+(function () {
+  let previewTimer;
+  document.addEventListener('input', (e) => {
+    if (e.target && e.target.id === 'waCustomText') {
+      clearTimeout(previewTimer);
+      previewTimer = setTimeout(() => {
+        const preview = document.getElementById('waPreview');
+        if (preview) preview.innerHTML = Utils.escape(e.target.value || 'Type your message...').replace(/\n/g, '<br>');
+      }, 300);
+    }
+  });
+})();
+</script>
+
+<!-- PWA SERVICE WORKER REGISTRATION (Requirement 2) -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('✅ Service Worker registered with scope:', registration.scope);
+        // Expose to PWAManager for update handling
+        if (typeof PWAManager !== 'undefined') {
+          PWAManager.registration = registration;
+          // Listen for updates
+          registration.addEventListener('updatefound', function() {
+            const newWorker = registration.installing;
+            if (!newWorker) return;
+            newWorker.addEventListener('statechange', function() {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                const t = document.getElementById('updateToast');
+                if (t) t.classList.add('show');
+              }
+            });
+          });
+        }
+      })
+      .catch(function(error) {
+        console.error('❌ Service Worker registration failed:', error);
+      });
+  });
+}
+
+// beforeinstallprompt event for 'Install App' button
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  // Store the event for later use by PWAManager
+  if (typeof PWAManager !== 'undefined') {
+    PWAManager.deferredPrompt = e;
+    if (!PWAManager.isStandalone) {
+      const btn = document.getElementById('pwaInstallBtn');
+      if (btn) btn.style.display = 'inline-flex';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
